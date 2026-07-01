@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "YekanBakh";
+  src: url("./assets/fonts/yekan-bakh/YekanBakh-Regular.woff2") format("woff2");
+}
