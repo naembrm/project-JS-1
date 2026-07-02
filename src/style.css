@@ -2,4 +2,6 @@
 @font-face {
   font-family: "YekanBakh";
   src: url("./assets/fonts/yekan-bakh/YekanBakh-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }
