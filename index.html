@@ -6,24 +6,43 @@
     <title>Document</title>
     <link rel="stylesheet" href="src/output.css" />
   </head>
-  <body class="font-yekan">
-    <header>
+  <body class="font-yekan bg-Neutral-9 dark:bg-[#060C18]">
+    <header class="relative">
       <!-- hamidreza -->
-      <div
-        class="max-w-[328px] block md:hidden h-12 rounded-lg bg-white dark:bg-[#060C18] shadow-[0_4px_58.5px_rgba(0,0,0,0.06)] flex items-center relative px-4"
-      >
-        <img src="./src/assets/images/menu.svg" alt="menu" />
-        <h1
-          class="text-2xl font-bold absolute left-1/2 -translate-x-1/2 text-black dark:text-white"
-        >
-          کوئرا لیست
-        </h1>
-      </div>
-      <div class="flex items-center gap-4 mt-4 block md:hidden">
+       <div class="wellcome  md:hidden ">
+<div
+  class="relative w-[90%] h-23 mx-auto mt-5 bg-Neutral-11 rounded-2xl flex items-center px-6 dark:bg-[#091120]"
+>
+  <!-- منو -->
+  <a href="#" class="ml-auto">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-10 h-10 dark:text-Neutral-10"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+      />
+    </svg>
+  </a>
+
+  <!-- عنوان -->
+  <h1
+    class="absolute right-1/2 translate-x-1/2 text-3xl font-bold dark:text-Neutral-10"
+  >
+    کوئرا لیست
+  </h1>
+</div>
+      <div class="flex items-center gap-4 mt-15 md:hidden w-[90%] m-auto">
         <img
           src="./src/assets/images/user.png"
           alt="user"
-          class="w-12 h-12 rounded-full object-cover"
+          class=" h-30 rounded-full object-cover"
         />
         <div>
           <h2 class="text-2xl font-bold text-black dark:text-white">
@@ -31,17 +50,18 @@
           </h2>
 
           <p
-            class="w-[170px] h-[22px] text-sm font-semibold text-[#7D7D7F] dark:text-[#848890]"
+            class=" text-xl font-semibold text-[#7D7D7F] dark:text-[#848890] mt-4"
           >
             امروز سه‌شنبه، ۵ بهمن ۱۴۰۲
           </p>
         </div>
       </div>
-
-      <aside>
+</div>
+<hr class="border-2 text-Neutral-8 mt-8 w-[90%] m-auto block md:hidden dark:hidden">
+      <aside class="hidden">
         <!-- naeme -->
       <aside
-        class="w-[80%] flex flex-col h-screen md:w-[20%] m-5 md:shadow-lg pb-15 dark:bg-[#091120]"
+        class=" w-[80%] flex flex-col h-screen md:w-[20%] m-5 md:shadow-lg pb-15 dark:bg-[#091120]"
       >
         <div
           class="hidden md:visible md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
