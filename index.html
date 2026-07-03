@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="src/output.css" />
-    <link rel="stylesheet" href="src/style.css" />
   </head>
-  <body class="font-yekan md:flex md:flex-row-reverse md:items-start md:gap-10">
-    <header>
-  <body class="font-yekan bg-Neutral-9 dark:bg-[#060C18]">
+  <body class="font-yekan bg-Neutral-9 dark:bg-[#060C18] md:flex md:gap-20">
     <header class="relative">
       <!-- hamidreza -->
       <div class="wellcome md:hidden">
@@ -67,8 +64,7 @@
       <!-- naeme -->
       باید فلکس داده شه
       <aside
-        class="w-full flex flex-col h-screen md:w-[280px] m-0 md:m-5 md:flex-shrink-0 md:shadow-lg md:sticky md:top-4 pb-15 dark:bg-[#091120]"
-        class="hidden w-[80%] flex flex-col h-screen md:w-[20%] m-5 md:shadow-lg pb-15 dark:bg-[#091120]"
+        class="hidden md:block w-[80%] flex-col h-screen md:w-[120%] m-5 md:shadow-lg pb-15 dark:bg-[#091120]"
       >
         <div
           class="hidden md:visible md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
@@ -308,12 +304,7 @@
               >
                 روشن
               </h2>
-              <button
-                id="light-toggle"
-                aria-pressed="false"
-                aria-label="روشن (Light)"
-                type="button"
-              >
+              <button id="light-toggle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -338,12 +329,7 @@
               >
                 تاریک
               </h2>
-              <button
-                id="dark-toggle"
-                aria-pressed="false"
-                aria-label="تاریک (Dark)"
-                type="button"
-              >
+              <button id="dark-toggle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -388,13 +374,14 @@
         </div>
       </aside>
     </header>
+
     <div class="body-container md:flex-1 p-4">
       <section class="today-tasks">
         <!-- taha -->
       </section>
       <!-- tarane -->
       <section class="tasks-done">
-        <div class="container-inner">
+        <div class="container-inner m-auto md:w-[65%]">
           <!-- عنوان -->
           <div class="mb-6 text-right">
             <h2
@@ -412,25 +399,28 @@
             <!-- Task 1 -->
             <div class="task-card relative">
               <div
-                class="flex items-center justify-between gap-3 bg-white p-4 shadow-sm dark:bg-[#121c29]"
+                class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
               >
                 <div class="indicator indicator-blue"></div>
                 <!-- چک‌باکس -->
                 <input class="ml-2" type="checkbox" checked />
                 <!-- متن -->
-                <p class="flex-1 text-right">خرید میوه و سبزیجات برای خانه</p>
+                <p class="flex-1 text-right dark:text-Neutral-8">
+                  خرید میوه و سبزیجات برای خانه
+                </p>
                 <!-- آیکون سه نقطه -->
                 <button>
                   <svg
                     width="4"
                     height="18"
                     viewBox="0 0 4 18"
-                    fill="none"
+                    fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-8 dark:text-Neutral-8"
                   >
-                    <circle cx="2" cy="2" r="2" fill="#525252" />
-                    <circle cx="2" cy="9" r="2" fill="#525252" />
-                    <circle cx="2" cy="16" r="2" fill="#525252" />
+                    <circle cx="2" cy="2" r="2" fill="currentColor" />
+                    <circle cx="2" cy="9" r="2" fill="currentColor" />
+                    <circle cx="2" cy="16" r="2" fill="currentColor" />
                   </svg>
                 </button>
               </div>
@@ -439,11 +429,11 @@
             <!-- Task 2 -->
             <div class="task-card relative">
               <div
-                class="flex items-center justify-between gap-3 bg-white p-4 shadow-sm dark:bg-[#121c29]"
+                class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
               >
                 <div class="indicator indicator-orange"></div>
                 <input class="ml-2" type="checkbox" checked />
-                <p class="flex-1 text-right">
+                <p class="flex-1 text-right dark:text-Neutral-8">
                   تماس با مبل فروشی در مورد دریافت
                 </p>
                 <button>
@@ -451,12 +441,13 @@
                     width="4"
                     height="18"
                     viewBox="0 0 4 18"
-                    fill="none"
+                    fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-8 dark:text-Neutral-8"
                   >
-                    <circle cx="2" cy="2" r="2" fill="#525252" />
-                    <circle cx="2" cy="9" r="2" fill="#525252" />
-                    <circle cx="2" cy="16" r="2" fill="#525252" />
+                    <circle cx="2" cy="2" r="2" fill="currentColor" />
+                    <circle cx="2" cy="9" r="2" fill="currentColor" />
+                    <circle cx="2" cy="16" r="2" fill="currentColor" />
                   </svg>
                 </button>
               </div>
@@ -465,11 +456,11 @@
             <!-- Task 3 -->
             <div class="task-card relative">
               <div
-                class="flex items-center justify-between gap-3 bg-white p-4 shadow-sm dark:bg-[#121c29]"
+                class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
               >
                 <div class="indicator indicator-green"></div>
                 <input class="ml-2" type="checkbox" checked />
-                <p class="flex-1 text-right">
+                <p class="flex-1 text-right dark:text-Neutral-8">
                   جلسه با مشتری در مورد پیشنهادهای پل
                 </p>
                 <button>
@@ -477,12 +468,13 @@
                     width="4"
                     height="18"
                     viewBox="0 0 4 18"
-                    fill="none"
+                    fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-8 dark:text-Neutral-8"
                   >
-                    <circle cx="2" cy="2" r="2" fill="#525252" />
-                    <circle cx="2" cy="9" r="2" fill="#525252" />
-                    <circle cx="2" cy="16" r="2" fill="#525252" />
+                    <circle cx="2" cy="2" r="2" fill="currentColor" />
+                    <circle cx="2" cy="9" r="2" fill="currentColor" />
+                    <circle cx="2" cy="16" r="2" fill="currentColor" />
                   </svg>
                 </button>
               </div>
@@ -491,60 +483,7 @@
         </div>
       </section>
     </div>
-    <script>
-      (function () {
-        const htmlEl = document.documentElement;
-        const bodyEl = document.body;
-        const lightBtn = document.getElementById("light-toggle");
-        const darkBtn = document.getElementById("dark-toggle");
-
-        function setButtonState(theme) {
-          if (lightBtn)
-            lightBtn.setAttribute(
-              "aria-pressed",
-              theme === "light" ? "true" : "false",
-            );
-          if (darkBtn)
-            darkBtn.setAttribute(
-              "aria-pressed",
-              theme === "dark" ? "true" : "false",
-            );
-        }
-
-        function applyTheme(theme) {
-          if (theme === "dark") {
-            htmlEl.classList.add("dark");
-            bodyEl.classList.add("dark");
-          } else {
-            htmlEl.classList.remove("dark");
-            bodyEl.classList.remove("dark");
-          }
-          setButtonState(theme);
-        }
-
-        // read saved preference
-        const saved = localStorage.getItem("theme");
-        if (saved) applyTheme(saved);
-        else {
-          // fallback to system preference
-          const prefersDark =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches;
-          applyTheme(prefersDark ? "dark" : "light");
-        }
-
-        if (lightBtn)
-          lightBtn.addEventListener("click", () => {
-            applyTheme("light");
-            localStorage.setItem("theme", "light");
-          });
-        if (darkBtn)
-          darkBtn.addEventListener("click", () => {
-            applyTheme("dark");
-            localStorage.setItem("theme", "dark");
-          });
-      })();
-    </script>
+    <script src="./src/index.js" type="module"></script>
   </body>
 </html>
 

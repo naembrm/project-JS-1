@@ -7,8 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-300: oklch(80.8% 0.114 19.571);
-    --color-neutral-400: oklch(70.8% 0 0);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -181,12 +180,6 @@
   }
 }
 @layer utilities {
-  .relative {
-    position: relative;
-  }
-  .m-5 {
-    margin: calc(var(--spacing) * 5);
-  }
   .absolute {
     position: absolute;
   }
@@ -199,8 +192,8 @@
   .right-1\/2 {
     right: calc(1 / 2 * 100%);
   }
-  .col-span-8 {
-    grid-column: span 8 / span 8;
+  .m-0 {
+    margin: 0;
   }
   .m-5 {
     margin: calc(var(--spacing) * 5);
@@ -235,9 +228,6 @@
   .mt-15 {
     margin-top: calc(var(--spacing) * 15);
   }
-  .mt-100 {
-    margin-top: calc(var(--spacing) * 100);
-  }
   .mt-auto {
     margin-top: auto;
   }
@@ -247,8 +237,12 @@
   .mb-11 {
     margin-bottom: calc(var(--spacing) * 11);
   }
+  .mb-25 {
+    margin-bottom: calc(var(--spacing) * 25);
+  }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
+  }
   .ml-auto {
     margin-left: auto;
   }
@@ -257,9 +251,6 @@
   }
   .flex {
     display: flex;
-  }
-  .grid {
-    display: grid;
   }
   .hidden {
     display: none;
@@ -278,9 +269,6 @@
   .h-8 {
     height: calc(var(--spacing) * 8);
   }
-  .h-9 {
-    height: calc(var(--spacing) * 9);
-  }
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
@@ -293,23 +281,11 @@
   .h-screen {
     height: 100vh;
   }
-  .w-1 {
-    width: var(--spacing);
-  }
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
-  .w-5 {
-    width: calc(var(--spacing) * 5);
-  }
-  .w-6 {
-    width: calc(var(--spacing) * 6);
-  }
   .w-10 {
     width: calc(var(--spacing) * 10);
-  }
-  .w-800 {
-    width: calc(var(--spacing) * 800);
   }
   .w-\[48\%\] {
     width: 48%;
@@ -323,8 +299,14 @@
   .w-\[90\%\] {
     width: 90%;
   }
+  .w-full {
+    width: 100%;
+  }
   .flex-1 {
     flex: 1;
+  }
+  .flex-shrink {
+    flex-shrink: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -339,9 +321,6 @@
   }
   .resize {
     resize: both;
-  }
-  .grid-cols-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
@@ -382,6 +361,7 @@
       margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
       margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
     }
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -413,6 +393,7 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
   .object-cover {
     object-fit: cover;
   }
@@ -427,12 +408,6 @@
   }
   .p-7 {
     padding: calc(var(--spacing) * 7);
-  }
-  .pb-15 {
-    padding-bottom: calc(var(--spacing) * 15);
-  }
-  .text-right {
-    text-align: right;
   }
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
@@ -450,9 +425,6 @@
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
-  .text-sm {
-    font-size: var(--text-sm);
-    line-height: var(--tw-leading, var(--text-sm--line-height));
   .text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading, var(--text-3xl--line-height));
@@ -482,9 +454,6 @@
   .text-Neutral-4 {
     color: #7d7d7f;
   }
-  .text-Neutral-7 {
-    color: #e1e0e5;
-  }
   .text-Neutral-8 {
     color: #e1e0e5;
   }
@@ -507,9 +476,28 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
   .md\:visible {
     @media (width >= 48rem) {
       visibility: visible;
+    }
+  }
+  .md\:sticky {
+    @media (width >= 48rem) {
+      position: sticky;
+    }
+  }
+  .md\:top-4 {
+    @media (width >= 48rem) {
+      top: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:m-5 {
+    @media (width >= 48rem) {
+      margin: calc(var(--spacing) * 5);
     }
   }
   .md\:m-auto {
@@ -537,6 +525,11 @@
       display: none;
     }
   }
+  .md\:w-\[20\%\] {
+    @media (width >= 48rem) {
+      width: 20%;
+    }
+  }
   .md\:w-\[65\%\] {
     @media (width >= 48rem) {
       width: 65%;
@@ -552,9 +545,19 @@
       width: 120%;
     }
   }
+  .md\:w-\[280px\] {
+    @media (width >= 48rem) {
+      width: 280px;
+    }
+  }
   .md\:flex-1 {
     @media (width >= 48rem) {
       flex: 1;
+    }
+  }
+  .md\:flex-shrink-0 {
+    @media (width >= 48rem) {
+      flex-shrink: 0;
     }
   }
   .md\:flex-row {
@@ -562,14 +565,29 @@
       flex-direction: row;
     }
   }
+  .md\:flex-row-reverse {
+    @media (width >= 48rem) {
+      flex-direction: row-reverse;
+    }
+  }
   .md\:items-center {
     @media (width >= 48rem) {
       align-items: center;
     }
   }
+  .md\:items-start {
+    @media (width >= 48rem) {
+      align-items: flex-start;
+    }
+  }
   .md\:gap-4 {
     @media (width >= 48rem) {
       gap: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:gap-10 {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 10);
     }
   }
   .md\:gap-20 {
@@ -593,9 +611,6 @@
       background-color: #0C1B31;
     }
   }
-  .dark\:bg-\[\#121c29\] {
-    @media (prefers-color-scheme: dark) {
-      background-color: #121c29;
   .dark\:bg-\[\#060C18\] {
     @media (prefers-color-scheme: dark) {
       background-color: #060C18;
@@ -669,7 +684,6 @@
   font-weight: 400;
   font-style: normal;
 }
-@property --tw-space-y-reverse {
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
@@ -772,7 +786,6 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
-      --tw-space-y-reverse: 0;
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
