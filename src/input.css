@@ -2,39 +2,45 @@
 
 @theme inline {
   --color-primary: #cccccc;
-  --primary-hover-light: #075cd9;
-  --on-primary-light: #ffffff;
-  --background-light: #ffffff;
-  --on-background-light: #191c1e;
-  --surface-light: #ffffff;
-  --Neutral-1: #000000;
-  --Neutral-2: #323233;
-  --Neutral-3: #646466;
-  --Neutral-4: #7d7d7f;
-  --Neutral-5: #afaeb2;
-  --Neutral-6: #c8c7cb;
-  --Neutral-7: #e1e0e5;
-  --Neutral-8: #e1e0e5;
-  --Neutral-9: #f5f6f8;
-  --Neutral-10: #fefefe;
-  --Neutral-11: #ffffff;
-  --Errors: #e63946;
-  --Success: #90f677;
+  --color-primary-hover-light: #075cd9;
+  --color-on-primary-light: #ffffff;
+  --color-background-light: #ffffff;
+  --color-on-background-light: #191c1e;
+  --color-surface-light: #ffffff;
+  --color-Neutral-1: #000000;
+  --color-Neutral-2: #323233;
+  --color-Neutral-3: #646466;
+  --color-Neutral-4: #7d7d7f;
+  --color-Neutral-5: #afaeb2;
+  --color-Neutral-6: #c8c7cb;
+  --color-Neutral-7: #e1e0e5;
+  --color-Neutral-8: #e1e0e5;
+  --color-Neutral-9: #f5f6f8;
+  --color-Neutral-10: #fefefe;
+  --color-Neutral-11: #ffffff;
+  --color-Errors: #e63946;
+  --color-Success: #90f677;
   --primary-hover-Dark: #6ba4fa;
-  --background-Dark: #040810;
-  --on-background-Dark: #e6e9ef;
-  --surface-Dark: #e6e9ef;
-  --Neutral-Dark-1: #ffffff;
-  --Neutral-Dark-2: #323233;
-  --Neutral-Dark-3: #646466;
-  --Neutral-Dark-4: #7d7d7f;
-  --Neutral-Dark-5: #afaeb2;
-  --Neutral-Dark-6: #c8c7cb;
-  --Neutral-Dark-7: #e1e0e5;
-  --Neutral-Dark-8: #e1e0e5;
-  --Neutral-Dark-9: #f5f6f8;
-  --Neutral-Dark-10: #fefefe;
-  --Neutral-Dark-11: #ffffff;
+  --color-background-Dark: #040810;
+  --color-on-background-Dark: #e6e9ef;
+  --color-surface-Dark: #e6e9ef;
+  --color-Neutral-Dark-1: #ffffff;
+  --color-Neutral-Dark-2: #323233;
+  --color-Neutral-Dark-3: #646466;
+  --color-Neutral-Dark-4: #7d7d7f;
+  --color-Neutral-Dark-5: #afaeb2;
+  --color-Neutral-Dark-6: #c8c7cb;
+  --color-Neutral-Dark-7: #e1e0e5;
+  --color-Neutral-Dark-8: #e1e0e5;
+  --color-Neutral-Dark-9: #f5f6f8;
+  --color-Neutral-Dark-10: #fefefe;
+  --color-Neutral-Dark-11: #ffffff;
+}
+@font-face {
+  font-family: "YekanBakh";
+  src: url("./assets/fonts/yekan-bakh/YekanBakh-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }
 @theme {
   --font-yekan: "YekanBakh", sans-serif;
