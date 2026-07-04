@@ -379,6 +379,7 @@
       <section class="today-tasks">
         <!-- taha -->
         <div
+          id="todo-list"
           class="mx-auto flex w-full md:w-[65%] flex-col gap-4 px-4 py-8 text-right dark:bg-background-Dark sm:px-6 lg:px-0"
         >
           <div class="flex w-full">
@@ -482,15 +483,11 @@
               class="absolute inset-y-3 right-0 w-1 rounded-l-lg bg-Errors"
             ></span>
             <div class="flex items-start gap-6">
-              <button
-                type="button"
-                aria-label="انتخاب تسک جلسه با مدیران پروژه"
-                class="mt-0.5 size-5 shrink-0 rounded-[5px] border border-Neutral-6 dark:border-Neutral-Dark-5"
-              ></button>
+              <input type="checkbox" class="task-check mt-0.5 size-5" />
               <div class="flex min-w-0 flex-col items-start gap-2.5">
                 <div class="flex flex-col flex-wrap items-start gap-3">
                   <h2
-                    class="text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
+                    class="task-title text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
                   >
                     جلسه با مدیران پروژه
                   </h2>
@@ -531,15 +528,11 @@
               class="absolute inset-y-3 right-0 w-1 rounded-l-lg bg-primary-hover-light"
             ></span>
             <div class="flex min-w-0 items-start gap-4">
-              <button
-                type="button"
-                aria-label="انتخاب تسک خرید میوه و سبزیجات و لبنیات برای خانه"
-                class="mt-0.5 size-5 shrink-0 rounded-[5px] border border-Neutral-6 dark:border-Neutral-Dark-5"
-              ></button>
+              <input type="checkbox" class="task-check mt-0.5 size-5" />
               <div class="flex min-w-0 items-end gap-2.5">
                 <div class="flex flex-col flex-wrap items-start gap-4">
                   <h2
-                    class="text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
+                    class="task-title text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
                   >
                     خرید میوه و سبزیجات و لبنیات برای خانه
                   </h2>
@@ -579,15 +572,11 @@
               class="absolute inset-y-3 right-0 w-1 rounded-l-lg bg-Success"
             ></span>
             <div class="flex min-w-0 items-start gap-4">
-              <button
-                type="button"
-                aria-label="انتخاب تسک تماس با جمشید"
-                class="mt-0.5 size-5 shrink-0 rounded-[5px] border border-Neutral-6 dark:border-Neutral-Dark-5"
-              ></button>
+              <input type="checkbox" class="task-check mt-0.5 size-5" />
               <div class="flex min-w-0 flex-col items-start gap-2.5">
                 <div class="flex flex-col flex-wrap items-start gap-4">
                   <h2
-                    class="text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
+                    class="task-title text-base font-bold text-Neutral-2 dark:text-on-background-Dark"
                   >
                     تماس با جمشید
                   </h2>
@@ -637,20 +626,16 @@
           </div>
 
           <!-- لیست تسک‌ها -->
-          <div class="space-y-4">
-            <!-- Task 1 -->
+          <div id="done-list" class="space-y-4">
             <div class="task-card relative">
-              <div
+              <!-- <div
                 class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
               >
                 <div class="indicator indicator-blue"></div>
-                <!-- چک‌باکس -->
                 <input class="ml-2" type="checkbox" checked />
-                <!-- متن -->
                 <p class="flex-1 text-right dark:text-Neutral-8">
                   خرید میوه و سبزیجات برای خانه
                 </p>
-                <!-- آیکون سه نقطه -->
                 <button>
                   <svg
                     width="4"
@@ -668,7 +653,6 @@
               </div>
             </div>
 
-            <!-- Task 2 -->
             <div class="task-card relative">
               <div
                 class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
@@ -695,7 +679,6 @@
               </div>
             </div>
 
-            <!-- Task 3 -->
             <div class="task-card relative">
               <div
                 class="flex items-center justify-between gap-3 bg-white h-\[80px\] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
@@ -720,11 +703,12 @@
                   </svg>
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
     </div>
+    <script src="./src/done.js" type="module"></script>
     <script src="./src/index.js" type="module"></script>
   </body>
 </html>
