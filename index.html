@@ -1,9 +1,15 @@
+
 <!doctype html>
 <html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+     <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
     <link rel="stylesheet" href="src/output.css" />
   </head>
   <body class="font-yekan bg-Neutral-9 dark:bg-[#060C18] md:flex md:gap-20">
@@ -14,7 +20,7 @@
           class="relative w-[90%] h-23 mx-auto mt-5 bg-Neutral-11 rounded-2xl flex items-center px-6 dark:bg-[#091120]"
         >
           <!-- منو -->
-          <a href="#" class="ml-auto">
+          <a id="menu-btn" href="#" class="ml-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -63,11 +69,16 @@
 
       <!-- naeme -->
       <!-- باید فلکس داده شه -->
-      <aside
-        class="sticky top-0 h-screen hidden md:flex w-[80%] flex-col md:w-[120%] m-5 md:shadow-lg pb-15 dark:bg-[#091120]"
-      >
+<aside
+  id="sidebar"
+  class="fixed md:static top-0 right-0 h-screen w-[70%] md:w-96
+          bg-white dark:bg-[#091120]
+         z-50 flex flex-col
+         transition-transform duration-300
+         translate-x-full md:translate-x-0 "
+>
         <div
-          class="hidden md:visible md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
+          class="hidden  md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
         >
           <div class="flex flex-col">
             <img src="./src/assets/images/user.png" alt="" />
@@ -93,21 +104,21 @@
               کوئرا لیست
             </h2>
           </div>
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-8"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18 18 6M6 6l12 12"
-              />
-            </svg>
+          <div id="close-menu">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke-width="1.5"
+  stroke="currentColor"
+  class="size-8 dark:text-white"
+>
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M6 18 18 6M6 6l12 12"
+  />
+</svg>
           </div>
         </div>
         <nav class="w-[80%] m-auto flex flex-col mt-\[50px\] flex-1 mb-25">
@@ -297,6 +308,7 @@
             class="dark-light flex gap-6 bg-Neutral-9 p-1 rounded-xl w-[80%] m-auto justify-between dark:bg-[#0C1B31]"
           >
             <div
+             id="light-toggle"
               class="flex flex-row-reverse bg-Neutral-11 p-5 rounded-xl w-[48%] justify-between dark:bg-inherit"
             >
               <h2
@@ -304,7 +316,7 @@
               >
                 روشن
               </h2>
-              <button id="light-toggle">
+              <button >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -322,6 +334,7 @@
               </button>
             </div>
             <div
+            id="dark-toggle"
               class="flex flex-row-reverse p-5 rounded-xl w-[48%] justify-between dark:bg-[#002247]"
             >
               <h2
@@ -329,7 +342,7 @@
               >
                 تاریک
               </h2>
-              <button id="dark-toggle">
+              <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -349,7 +362,7 @@
           </div>
           <hr class="border-2 w-[80%] opacity-20 mt-10 m-auto" />
           <div
-            class="exit flex flex-row-reverse justify-end mt-7 w-[70%] m-auto gap-7"
+            class=" mb-20 exit flex flex-row-reverse justify-end mt-7 w-[70%] m-auto gap-7"
           >
             <h2 class="font-bold text-xl dark:text-Neutral-11 dark:font-light">
               خروج
@@ -375,15 +388,15 @@
       </aside>
     </header>
 
-    <div class="body-container md:flex-1 p-4 mt-10">
+    <div class="body-container md:flex-1 p-4 mt-10 h-screen ">
       <section class="today-tasks">
         <!-- taha -->
         <div
           id="todo-list"
-          class="mx-auto flex w-full md:w-[65%] flex-col gap-4 px-4 py-8 text-right dark:bg-background-Dark sm:px-6 lg:px-0"
+          class="mx-auto flex w-full md:w-[65%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0"
         >
           <div class="flex w-full">
-            <div class="flex flex-col items-start items-end gap-1">
+            <div class="flex flex-col items-start gap-1">
               <h1
                 class="text-xl font-extrabold text-Neutral-2 dark:text-on-background-Dark"
               >
@@ -430,7 +443,7 @@
 
                 <button
                   type="button"
-                  class="w-[20%] md:w-[10%] h-[40px] inline-flex flex-row-reverse items-center justify-center gap-3 rounded-sm border border-Neutral-7 px-2 py-1 text-sm font-semibold text-Neutral-5 dark:border-Neutral-Dark-3 dark:text-Neutral-Dark-5"
+                  class="w-[25%] md:w-[15%] h-[40px] inline-flex flex-row-reverse items-center justify-center gap-3 rounded-sm border border-Neutral-7 px-2 py-1 text-sm font-semibold text-Neutral-5 dark:border-Neutral-Dark-3 dark:text-Neutral-Dark-5"
                 >
                   <span>تگ ها</span>
                   <svg
@@ -451,7 +464,7 @@
               <div
                 id="priority-selector"
                 dir="ltr"
-                class="flex w-[50%] md:w-[25%] flex-wrap items-center justify-end gap-3 rounded-lg border border-Neutral-7 bg-Neutral-11 p-2.5 shadow-[0px_12px_24px_-6px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#0B192D] dark:shadow-none sm:w-auto sm:gap-4"
+                class="flex w-[50%] md:w-[30%] flex-wrap items-center justify-end gap-3 rounded-lg border border-Neutral-7 bg-Neutral-11 p-2.5 shadow-[0px_12px_24px_-6px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#0B192D] dark:shadow-none sm:w-auto sm:gap-4"
               >
                 <span
                   data-priority="high"
@@ -734,9 +747,14 @@
         </div>
       </section>
     </div>
+<div
+  id="overlay"
+  class="fixed inset-0 bg-black/90 opacity-0 invisible transition-all duration-300 z-40 md:hidden"
+></div>
     <script src="./src/done.js" type="module"></script>
     <script src="./src/index.js" type="module"></script>
     <script src="./src/task-form.js" defer></script>
+    <script src="./src/dark.js"></script>
   </body>
 </html>
 

@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
+  --font-yekan: "YekanBakh", sans-serif;
   --color-primary: #cccccc;
   --color-primary-hover-light: #075cd9;
   --color-on-primary-light: #ffffff;
@@ -41,7 +43,4 @@
   src: url("./assets/fonts/yekan-bakh/YekanBakh-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-}
-@theme {
-  --font-yekan: "YekanBakh", sans-serif;
 }
