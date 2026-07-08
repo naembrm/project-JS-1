@@ -65,7 +65,11 @@
     );
     const prioritySelector = document.getElementById("priority-selector");
     const addTaskButton = document.getElementById("add-task-button");
+    const showFormButton = document.getElementById(
+      "show-task-form-button",
+    );
     const doneList = document.getElementById("done-list");
+    const emptyState = document.getElementById("empty-state");
     const remainingTaskCount = document.getElementById(
       "remaining-task-count",
     );
@@ -84,6 +88,34 @@
     const formCard = addTaskButton.parentElement
       ? addTaskButton.parentElement.parentElement
       : null;
+
+    function showTaskForm() {
+      if (!formCard) return;
+
+      formCard.classList.remove("hidden");
+      formCard.classList.add("flex");
+
+      if (showFormButton) {
+        showFormButton.classList.remove("flex");
+        showFormButton.classList.add("hidden");
+      }
+    }
+
+    function hideTaskForm() {
+      if (!formCard) return;
+
+      formCard.classList.remove("flex");
+      formCard.classList.add("hidden");
+
+      if (showFormButton) {
+        showFormButton.classList.remove("hidden");
+        showFormButton.classList.add("flex");
+      }
+    }
+
+    if (showFormButton) {
+      showFormButton.addEventListener("click", showTaskForm);
+    }
 
     const originalPriorityHTML = prioritySelector.innerHTML;
     const originalPriorityClass = prioritySelector.className;
@@ -323,6 +355,12 @@
         });
       }
 
+      if (emptyState) {
+        const hasActiveTasks = activeTasks.length > 0;
+        emptyState.classList.toggle("hidden", hasActiveTasks);
+        emptyState.classList.toggle("flex", !hasActiveTasks);
+      }
+
       updateRemainingCount();
     }
 
@@ -357,6 +395,7 @@
       writeStorage(STORAGE_KEYS.tasks, tasks);
       renderSavedTasks();
       resetForm();
+      hideTaskForm();
     }
 
     function prepareEditableField(field) {
