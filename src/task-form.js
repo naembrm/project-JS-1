@@ -19,8 +19,7 @@
       chipBackground: "#fff4df",
       chipText: "#ffaf37",
       indicatorClass: "bg-primary-hover-light",
-      badgeClass:
-        "bg-primary-hover-light/10 text-primary-hover-light",
+      badgeClass: "bg-primary-hover-light/10 text-primary-hover-light",
     },
     low: {
       label: "پایین",
@@ -60,19 +59,13 @@
   function initializeTaskForm() {
     const todoList = document.getElementById("todo-list");
     const titleField = document.getElementById("task-name-field");
-    const descriptionField = document.getElementById(
-      "task-description-field",
-    );
+    const descriptionField = document.getElementById("task-description-field");
     const prioritySelector = document.getElementById("priority-selector");
     const addTaskButton = document.getElementById("add-task-button");
-    const showFormButton = document.getElementById(
-      "show-task-form-button",
-    );
+    const showFormButton = document.getElementById("show-task-form-button");
     const doneList = document.getElementById("done-list");
     const emptyState = document.getElementById("empty-state");
-    const remainingTaskCount = document.getElementById(
-      "remaining-task-count",
-    );
+    const remainingTaskCount = document.getElementById("remaining-task-count");
 
     if (
       !todoList ||
@@ -88,13 +81,12 @@
     const formCard = addTaskButton.parentElement
       ? addTaskButton.parentElement.parentElement
       : null;
-
     function showTaskForm() {
       if (!formCard) return;
 
       formCard.classList.remove("hidden");
       formCard.classList.add("flex");
-
+      emptyState.classList.add("hidden");
       if (showFormButton) {
         showFormButton.classList.remove("flex");
         showFormButton.classList.add("hidden");
@@ -160,8 +152,8 @@
     function isFormComplete() {
       return Boolean(
         getEditableValue(titleField) &&
-          getEditableValue(descriptionField) &&
-          selectedPriority,
+        getEditableValue(descriptionField) &&
+        selectedPriority,
       );
     }
 
@@ -275,12 +267,10 @@
       checkbox.className = "task-check mt-0.5 size-5";
 
       const textContainer = document.createElement("div");
-      textContainer.className =
-        "flex min-w-0 flex-col items-start gap-2.5";
+      textContainer.className = "flex min-w-0 flex-col items-start gap-2.5";
 
       const headingGroup = document.createElement("div");
-      headingGroup.className =
-        "flex flex-col flex-wrap items-start gap-3";
+      headingGroup.className = "flex flex-col flex-wrap items-start gap-3";
 
       const title = document.createElement("h2");
       title.className =
@@ -515,3 +505,12 @@
     initializeTaskForm();
   }
 })();
+
+const emptyState = document.getElementById("empty-state");
+
+if (tasks.length > 0) {
+  emptyState.classList.add("hidden");
+}
+if (tasks.length === 0) {
+  emptyState.classList.remove("hidden");
+}

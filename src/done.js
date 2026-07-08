@@ -1,49 +1,27 @@
-const doneList = document.getElementById("done-list");
+import { readStorage, writeStorage, STORAGE_KEYS } from "./storage.js";
 
-document.querySelectorAll(".task-check").forEach((check) => {
-  check.addEventListener("change", function () {
-    if (!this.checked) return;
+function completeTask(id) {
+  const tasks = readStorage(STORAGE_KEYS.tasks);
 
-    const article = this.closest("article");
+  const task = tasks.find((task) => task.id === id);
 
-    const title = article.querySelector("h2").textContent;
-    const color = article.querySelector("span").className;
+  if (!task) return;
 
-    const newTask = document.createElement("div");
+  task.completed = true;
 
-    newTask.className = "task-card relative";
+  writeStorage(STORAGE_KEYS.tasks, tasks);
 
-    newTask.innerHTML = `
-      <div
-        class="flex items-center justify-between gap-3 bg-white h-[80px] p-4 shadow-sm dark:bg-[#121c29] rounded-xl"
-      >
-<span class="${color}"></span>
-        <input class="ml-2" type="checkbox" checked>
+  renderSavedTasks();
+  renderDoneTasks();
+}
 
-        <p class="flex-1 text-right line-through text-gray-400 dark:text-Neutral-8">
-          ${title}
-        </p>
+document.addEventListener("change", (event) => {
+  if (!event.target.classList.contains("task-check")) return;
 
-        <button>
-          <svg
-            width="4"
-            height="18"
-            viewBox="0 0 4 18"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-2 h-6 dark:text-Neutral-8"
-          >
-            <circle cx="2" cy="2" r="2"/>
-            <circle cx="2" cy="9" r="2"/>
-            <circle cx="2" cy="16" r="2"/>
-          </svg>
-        </button>
+  if (!event.target.checked) return;
 
-      </div>
-    `;
+  const article = event.target.closest("article");
+  const id = article.dataset.id;
 
-    doneList.prepend(newTask);
-
-    article.remove();
-  });
+  completeTask(id);
 });
