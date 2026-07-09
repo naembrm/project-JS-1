@@ -9,24 +9,23 @@
   const PRIORITIES = {
     high: {
       label: "بالا",
-      chipBackground: "#ffe2db",
-      chipText: "#ff5f37",
       indicatorClass: "bg-Errors",
-      badgeClass: "bg-Errors/10 text-Errors",
+      badgeClass:
+        "rounded-sm px-2 py-0.5 text-xs font-semibold bg-[#FFE2DB] text-[#FF5F37] dark:bg-[#4A1F18] dark:text-[#FF8A6B]",
     },
+
     medium: {
       label: "متوسط",
-      chipBackground: "#fff4df",
-      chipText: "#ffaf37",
       indicatorClass: "bg-[#FFAF37]",
-      badgeClass: "bg-[#FFAF37]/10 text-[#FFAF37]",
+      badgeClass:
+        "rounded-sm px-2 py-0.5 text-xs font-semibold bg-[#FFF4DF] text-[#FFAF37] dark:bg-[#4A3915] dark:text-[#FFD166]",
     },
+
     low: {
       label: "پایین",
-      chipBackground: "#dff7ec",
-      chipText: "#00a878",
       indicatorClass: "bg-Success",
-      badgeClass: "bg-Success/20 text-Success",
+      badgeClass:
+        "rounded-sm px-2 py-0.5 text-xs font-semibold bg-[#DFF7EC] text-[#007A55] dark:bg-[#143D31] dark:text-[#6EE7B7]",
     },
   };
 
@@ -60,7 +59,9 @@
     const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return num.toString().replace(/\d/g, (d) => persianDigits[d]);
   }
-
+  let selectedPriority = null;
+  let editingTaskId = null;
+  let tasks = readStorage(STORAGE_KEYS.tasks, []);
   function initializeTaskForm() {
     const todoList = document.getElementById("todo-list");
     const titleField = document.getElementById("task-name-field");
@@ -185,38 +186,35 @@
       const priorityData = PRIORITIES[priority];
       if (!priorityData) return;
 
-      // از استایل مستقیم استفاده می‌شود تا باکس حتی بدون rebuild شدن Tailwind
-      // فقط به اندازه محتوای خودش عرض داشته باشد و طراحی اصلی حفظ شود
-      prioritySelector.className = "";
+      prioritySelector.removeAttribute("style");
       prioritySelector.setAttribute("dir", "rtl");
-      Object.assign(prioritySelector.style, {
-        display: "inline-flex",
-        width: "fit-content",
-        maxWidth: "100%",
-        flex: "0 0 auto",
-        alignSelf: "flex-end",
-        marginLeft: "auto",
-        marginRight: "0",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "0.375rem",
-        padding: "0.25rem 0.5rem",
-        borderRadius: "0.125rem",
-        border: "0",
-        boxShadow: "none",
-        backgroundColor: priorityData.chipBackground,
-      });
+
+      prioritySelector.className =
+        "inline-flex items-center gap-1 px-2 py-1 rounded w-fit max-w-max ml-auto dark:text-gray-300";
+
+      prioritySelector.classList.remove("hidden");
 
       prioritySelector.innerHTML = `
-        <div data-clear-priority data-svg-wrapper data-style="2-shade" class="relative" role="button" tabindex="0" aria-label="حذف اولویت">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 4L8 8M8 8L12 12M8 8L12 4M8 8L4 12" stroke="var(--Labels---Vibrant-Primary, #1A1A1A)" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="text-right justify-center text-sm font-semibold font-['Yekan_Bakh']" style="color: ${priorityData.chipText}">
-          ${priorityData.label}
-        </div>
-      `;
+    <div
+      data-clear-priority
+      class="cursor-pointer flex items-center justify-center"
+      tabindex="0"
+      aria-label="حذف اولویت"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M4 4L8 8M8 8L12 12M8 8L12 4M8 8L4 12"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <span class="${priorityData.badgeClass}">
+      ${priorityData.label}
+    </span>
+  `;
     }
 
     function selectPriority(priority, shouldSave = true) {
@@ -238,15 +236,18 @@
       if (shouldSave) saveDraft();
       updateAddButton();
     }
-
+    document.addEventListener("click", () => {
+      document.querySelectorAll("[data-task-menu]").forEach((menu) => {
+        menu.classList.add("hidden");
+      });
+    });
     function createMoreButton(task) {
       const wrapper = document.createElement("div");
       wrapper.className = "relative";
 
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "p-1 text-Neutral-5 hover:bg-Neutral-7 rounded-md";
-
+      button.className = "p-1 text-Neutral-5 cursor-pointer rounded-md";
       button.innerHTML = `
     <svg 
       width="3" 
@@ -266,6 +267,8 @@
 
       menu.className =
         "hidden absolute left-0 top-7 z-20 flex items-center gap-2 rounded-lg border border-Neutral-7 bg-white px-2 py-1 shadow-md dark:bg-[#121c29]";
+
+      menu.dataset.taskMenu = "true";
 
       menu.innerHTML = `
   <button 
@@ -320,6 +323,14 @@
       button.addEventListener("click", (event) => {
         event.stopPropagation();
 
+        // بستن همه منوهای باز
+        document.querySelectorAll("[data-task-menu]").forEach((item) => {
+          if (item !== menu) {
+            item.classList.add("hidden");
+          }
+        });
+
+        // باز و بسته کردن همین یکی
         menu.classList.toggle("hidden");
       });
 
@@ -329,21 +340,19 @@
         writeStorage(STORAGE_KEYS.tasks, tasks);
         renderSavedTasks();
       });
-
       menu.querySelector("[data-edit]").addEventListener("click", () => {
         titleField.textContent = task.title;
         descriptionField.textContent = task.description;
 
         selectPriority(task.priority);
 
-        tasks = tasks.filter((savedTask) => savedTask.id !== task.id);
+        editingTaskId = task.id;
 
-        writeStorage(STORAGE_KEYS.tasks, tasks);
+        addTaskButton.textContent = "ویرایش تسک";
 
         showTaskForm();
         menu.classList.add("hidden");
       });
-
       wrapper.append(button, menu);
 
       return wrapper;
@@ -367,13 +376,13 @@
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = Boolean(completed);
-      checkbox.className = "task-check mt-0.5 size-5";
+      checkbox.className = "task-check mt-0.5 size-5 cursor-pointer";
 
       const textContainer = document.createElement("div");
       textContainer.className = "flex min-w-0 flex-col items-start gap-2.5";
 
       const headingGroup = document.createElement("div");
-      headingGroup.className = "flex flex-col flex-wrap items-start gap-3";
+      headingGroup.className = "flex items-center gap-2 flex-wrap";
 
       const title = document.createElement("h2");
       title.className =
@@ -394,8 +403,16 @@
         description.classList.add("line-through", "opacity-60");
       }
 
-      headingGroup.append(title, badge);
-      textContainer.append(headingGroup, description);
+      headingGroup.append(title);
+
+      if (!completed) {
+        headingGroup.append(badge);
+      }
+      textContainer.append(headingGroup);
+
+      if (!completed && task.description) {
+        textContainer.append(description);
+      }
       content.append(checkbox, textContainer);
       article.append(indicator, content, createMoreButton(task));
 
@@ -418,11 +435,13 @@
     function updateRemainingCount() {
       if (!remainingTaskCount) return;
 
-      const remainingCount = todoList.querySelectorAll(
-        "article .task-check:not(:checked)",
-      ).length;
+      const remainingCount = tasks.filter((task) => !task.completed).length;
 
-      remainingTaskCount.textContent = `${remainingCount} `;
+      if (remainingCount === 0) {
+        remainingTaskCount.textContent = "هیچ تسکی برای انجام دادن ندارید";
+      } else {
+        remainingTaskCount.textContent = `${toPersianDigits(remainingCount)} تسک برای انجام دارید`;
+      }
     }
 
     function updateDoneCount() {
@@ -433,7 +452,7 @@
       doneCountText.textContent =
         doneCount === 0
           ? "هنوز تسکی انجام نشده است."
-          : `${toPersianDigits(doneCount)} تسک انجام شده است.`;
+          : `${toPersianDigits(doneCount)} تسک انجام شده است`;
     }
 
     function renderSavedTasks() {
@@ -441,8 +460,25 @@
         .querySelectorAll('[data-saved-task="true"]')
         .forEach((taskCard) => taskCard.remove());
 
-      const activeTasks = tasks.filter((task) => !task.completed);
-      const completedTasks = tasks.filter((task) => task.completed);
+      const priorityOrder = {
+        high: 1,
+        medium: 2,
+        low: 3,
+      };
+
+      const sortedTasks = [...tasks].sort((a, b) => {
+        const priorityDiff =
+          priorityOrder[a.priority] - priorityOrder[b.priority];
+
+        if (priorityDiff !== 0) {
+          return priorityDiff;
+        }
+
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+
+      const activeTasks = sortedTasks.filter((task) => !task.completed);
+      const completedTasks = sortedTasks.filter((task) => task.completed);
 
       if (formCard) {
         [...activeTasks].reverse().forEach((task) => {
@@ -487,16 +523,33 @@
 
       if (!isFormComplete()) return;
 
-      const task = {
-        id: createTaskId(),
-        title: getEditableValue(titleField),
-        description: getEditableValue(descriptionField),
-        priority: selectedPriority,
-        completed: false,
-        createdAt: new Date().toISOString(),
-      };
+      if (editingTaskId) {
+        tasks = tasks.map((task) =>
+          task.id === editingTaskId
+            ? {
+                ...task,
+                title: getEditableValue(titleField),
+                description: getEditableValue(descriptionField),
+                priority: selectedPriority,
+              }
+            : task,
+        );
 
-      tasks.unshift(task);
+        editingTaskId = null;
+        addTaskButton.textContent = "افزودن تسک";
+      } else {
+        const task = {
+          id: createTaskId(),
+          title: getEditableValue(titleField),
+          description: getEditableValue(descriptionField),
+          priority: selectedPriority,
+          completed: false,
+          createdAt: new Date().toISOString(),
+        };
+
+        tasks.unshift(task);
+      }
+
       writeStorage(STORAGE_KEYS.tasks, tasks);
       renderSavedTasks();
       resetForm();
