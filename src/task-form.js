@@ -113,9 +113,11 @@
     const originalPriorityClass = prioritySelector.className;
     const originalPriorityDirection =
       prioritySelector.getAttribute("dir") || "ltr";
+    const defaultAddButtonText = addTaskButton.textContent;
 
     let selectedPriority = null;
     let tasks = readStorage(STORAGE_KEYS.tasks, []);
+    let editingTaskId = null;
 
     if (!Array.isArray(tasks)) {
       tasks = [];
@@ -130,7 +132,17 @@
 
     function getEditableValue(field) {
       const value = normalizeText(field.textContent);
-      return value === field.dataset.placeholder ? "" : value;
+      const placeholder = normalizeText(field.dataset.placeholder);
+
+      if (value === placeholder) {
+        return "";
+      }
+
+      if (placeholder && value.endsWith(placeholder)) {
+        return normalizeText(value.slice(0, -placeholder.length));
+      }
+
+      return value;
     }
 
     function setEditableValue(field, value) {
@@ -157,10 +169,25 @@
       );
     }
 
+    function getFormState() {
+      const title = getEditableValue(titleField);
+      const description = getEditableValue(descriptionField);
+
+      return {
+        title,
+        description,
+        priority: selectedPriority,
+        hasTitle: Boolean(title),
+        hasDescription: Boolean(description),
+        hasPriority: Boolean(selectedPriority),
+        isComplete: Boolean(title && description && selectedPriority),
+      };
+    }
+
     function updateAddButton() {
       const isActive = isFormComplete();
 
-      addTaskButton.disabled = !isActive;
+      addTaskButton.disabled = false;
       addTaskButton.setAttribute("aria-disabled", String(!isActive));
       addTaskButton.classList.toggle("opacity-60", !isActive);
       addTaskButton.classList.toggle("opacity-100", isActive);
@@ -232,18 +259,174 @@
       updateAddButton();
     }
 
-    function createMoreButton() {
+    function exitEditMode() {
+      editingTaskId = null;
+      addTaskButton.textContent = defaultAddButtonText;
+    }
+
+    function createMoreButton(taskId) {
       const button = document.createElement("button");
+
       button.type = "button";
+      button.dataset.taskId = taskId;
+      button.dataset.taskMenuToggle = "true";
       button.setAttribute("aria-label", "گزینه‌های تسک");
+      button.setAttribute("aria-expanded", "false");
+      Object.assign(button.style, {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "2rem",
+        height: "2rem",
+        border: "0",
+        borderRadius: "0.5rem",
+        backgroundColor: "transparent",
+        color: "var(--color-Neutral-3, #646466)",
+        cursor: "pointer",
+      });
+
       button.innerHTML = `
-        <svg width="4" height="18" viewBox="0 0 4 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-2 h-6 dark:text-Neutral-8">
-          <circle cx="2" cy="2" r="2" fill="currentColor" />
-          <circle cx="2" cy="9" r="2" fill="currentColor" />
-          <circle cx="2" cy="16" r="2" fill="currentColor" />
+        <svg width="4" height="18" viewBox="0 0 4 18" fill="currentColor" aria-hidden="true">
+          <circle cx="2" cy="2" r="2"/>
+          <circle cx="2" cy="9" r="2"/>
+          <circle cx="2" cy="16" r="2"/>
         </svg>
       `;
+
       return button;
+    }
+
+    function setMenuItemStyle(button, color = "var(--color-Neutral-2, #323233)") {
+      Object.assign(button.style, {
+        width: "100%",
+        border: "0",
+        backgroundColor: "transparent",
+        color,
+        cursor: "pointer",
+        padding: "0.5rem 0.75rem",
+        textAlign: "right",
+        fontFamily: "inherit",
+        fontSize: "0.875rem",
+        fontWeight: "600",
+        whiteSpace: "nowrap",
+      });
+    }
+
+    function createMenuItem(taskId, action, label, color) {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.dataset.taskId = taskId;
+      button.dataset.taskAction = action;
+      button.textContent = label;
+      setMenuItemStyle(button, color);
+
+      return button;
+    }
+
+    function closeTaskMenus(exceptMenu = null) {
+      document.querySelectorAll("[data-task-menu]").forEach((menu) => {
+        if (menu === exceptMenu) return;
+
+        menu.hidden = true;
+        const toggle = menu.parentElement
+          ? menu.parentElement.querySelector("[data-task-menu-toggle]")
+          : null;
+
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    function createTaskActions(taskId) {
+      const actions = document.createElement("div");
+      actions.className = "relative shrink-0";
+      Object.assign(actions.style, {
+        position: "relative",
+        flex: "0 0 auto",
+      });
+
+      const moreButton = createMoreButton(taskId);
+      const menu = document.createElement("div");
+
+      menu.dataset.taskMenu = "true";
+      menu.hidden = true;
+      Object.assign(menu.style, {
+        position: "absolute",
+        top: "2.25rem",
+        left: "0",
+        zIndex: "20",
+        minWidth: "7rem",
+        overflow: "hidden",
+        border: "1px solid #e1e0e5",
+        borderRadius: "0.5rem",
+        backgroundColor: document.documentElement.classList.contains("dark")
+          ? "#121c29"
+          : "#ffffff",
+        boxShadow: "0 12px 24px rgba(15, 23, 42, 0.12)",
+      });
+
+      menu.append(
+        createMenuItem(taskId, "edit", "ویرایش", "var(--color-Neutral-2, #323233)"),
+        createMenuItem(taskId, "delete", "حذف", "var(--color-Errors, #e63946)"),
+      );
+
+      moreButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const shouldOpen = menu.hidden;
+        closeTaskMenus(menu);
+        menu.hidden = !shouldOpen;
+        moreButton.setAttribute("aria-expanded", String(shouldOpen));
+      });
+
+      menu.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-task-action]");
+        if (!button) return;
+
+        closeTaskMenus();
+
+        if (button.dataset.taskAction === "delete") {
+          deleteTask(button.dataset.taskId);
+          return;
+        }
+
+        if (button.dataset.taskAction === "edit") {
+          startEditingTask(button.dataset.taskId);
+        }
+      });
+
+      actions.append(moreButton, menu);
+
+      return actions;
+    }
+
+    function deleteTask(taskId) {
+      tasks = tasks.filter((task) => task.id !== taskId);
+
+      if (editingTaskId === taskId) {
+        exitEditMode();
+        resetForm();
+        hideTaskForm();
+      }
+
+      writeStorage(STORAGE_KEYS.tasks, tasks);
+      renderSavedTasks();
+    }
+
+    function startEditingTask(taskId) {
+      const task = tasks.find((savedTask) => savedTask.id === taskId);
+      if (!task) return;
+
+      editingTaskId = task.id;
+      setEditableValue(titleField, task.title);
+      setEditableValue(descriptionField, task.description);
+      selectPriority(task.priority, false);
+      addTaskButton.textContent = "ذخیره تغییرات";
+      showTaskForm();
+      updateAddButton();
+      titleField.focus();
     }
 
     function createTaskCard(task, completed) {
@@ -254,12 +437,36 @@
       article.dataset.taskId = task.id;
       article.className =
         "relative flex min-h-[108px] w-full items-start justify-between gap-4 overflow-hidden rounded-xl border border-Neutral-7 bg-Neutral-11 py-6 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]";
+      Object.assign(article.style, {
+        position: "relative",
+        display: "flex",
+        minHeight: "108px",
+        width: "100%",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        gap: "1rem",
+        overflow: "hidden",
+        borderRadius: "0.75rem",
+        border: "1px solid #e1e0e5",
+        backgroundColor: document.documentElement.classList.contains("dark")
+          ? "#121c29"
+          : "#ffffff",
+        padding: "1.5rem 1.5rem 1.5rem 1.25rem",
+        boxSizing: "border-box",
+      });
 
       const indicator = document.createElement("span");
       indicator.className = `absolute inset-y-3 right-0 w-1 rounded-l-lg ${priorityData.indicatorClass}`;
 
       const content = document.createElement("div");
       content.className = "flex min-w-0 items-start gap-4";
+      Object.assign(content.style, {
+        display: "flex",
+        minWidth: "0",
+        flex: "1 1 auto",
+        alignItems: "flex-start",
+        gap: "1rem",
+      });
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
@@ -294,8 +501,6 @@
       headingGroup.append(title, badge);
       textContainer.append(headingGroup, description);
       content.append(checkbox, textContainer);
-      article.append(indicator, content, createMoreButton());
-
       checkbox.addEventListener("change", (event) => {
         event.stopImmediatePropagation();
 
@@ -308,6 +513,8 @@
         writeStorage(STORAGE_KEYS.tasks, tasks);
         renderSavedTasks();
       });
+
+      article.append(indicator, content, createTaskActions(task.id));
 
       return article;
     }
@@ -363,6 +570,7 @@
         description: "",
         priority: null,
       });
+      exitEditMode();
       updateAddButton();
     }
 
@@ -370,18 +578,43 @@
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      if (!isFormComplete()) return;
+      const formState = getFormState();
+      console.log("[task-form] Add task clicked", formState);
 
-      const task = {
-        id: createTaskId(),
-        title: getEditableValue(titleField),
-        description: getEditableValue(descriptionField),
-        priority: selectedPriority,
-        completed: false,
-        createdAt: new Date().toISOString(),
-      };
+      if (!formState.isComplete) {
+        console.warn("[task-form] Task was not added because the form is incomplete", formState);
+        return;
+      }
 
-      tasks.unshift(task);
+      if (editingTaskId) {
+        tasks = tasks.map((savedTask) =>
+          savedTask.id === editingTaskId
+            ? {
+                ...savedTask,
+                title: getEditableValue(titleField),
+                description: getEditableValue(descriptionField),
+                priority: selectedPriority,
+                updatedAt: new Date().toISOString(),
+              }
+            : savedTask,
+        );
+      } else {
+        const task = {
+          id: createTaskId(),
+          title: getEditableValue(titleField),
+          description: getEditableValue(descriptionField),
+          priority: selectedPriority,
+          completed: false,
+          createdAt: new Date().toISOString(),
+        };
+
+        tasks.unshift(task);
+        console.log("[task-form] Task added", {
+          task,
+          totalTasks: tasks.length,
+        });
+      }
+
       writeStorage(STORAGE_KEYS.tasks, tasks);
       renderSavedTasks();
       resetForm();
@@ -390,6 +623,12 @@
 
     function prepareEditableField(field) {
       field.addEventListener("focus", () => {
+        if (!getEditableValue(field)) {
+          field.textContent = "";
+        }
+      });
+
+      field.addEventListener("click", () => {
         if (!getEditableValue(field)) {
           field.textContent = "";
         }
@@ -473,6 +712,13 @@
       }
     });
 
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("[data-task-menu]") &&
+        !event.target.closest("[data-task-menu-toggle]")) {
+        closeTaskMenus();
+      }
+    });
+
     const draft = readStorage(STORAGE_KEYS.draft, {});
 
     setEditableValue(
@@ -505,12 +751,3 @@
     initializeTaskForm();
   }
 })();
-
-const emptyState = document.getElementById("empty-state");
-
-if (tasks.length > 0) {
-  emptyState.classList.add("hidden");
-}
-if (tasks.length === 0) {
-  emptyState.classList.remove("hidden");
-}
