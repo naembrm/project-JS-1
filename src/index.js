@@ -63,6 +63,7 @@
   let editingTaskId = null;
   let tasks = readStorage(STORAGE_KEYS.tasks, []);
   function initializeTaskForm() {
+    const doneSection = document.getElementById("done-section");
     const todoList = document.getElementById("todo-list");
     const titleField = document.getElementById("task-name-field");
     const descriptionField = document.getElementById("task-description-field");
@@ -449,10 +450,13 @@
 
       const doneCount = tasks.filter((task) => task.completed).length;
 
-      doneCountText.textContent =
-        doneCount === 0
-          ? "هنوز تسکی انجام نشده است."
-          : `${toPersianDigits(doneCount)} تسک انجام شده است`;
+      if (doneCount === 0) {
+        doneCountText.textContent = "";
+        doneSection?.classList.add("hidden");
+      } else {
+        doneSection?.classList.remove("hidden");
+        doneCountText.textContent = `${toPersianDigits(doneCount)} تسک انجام شده است`;
+      }
     }
 
     function renderSavedTasks() {

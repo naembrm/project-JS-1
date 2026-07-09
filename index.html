@@ -73,15 +73,19 @@
       <!-- باید فلکس داده شه -->
 <aside
   id="sidebar"
-  class="fixed top-0 right-0 h-screen w-[70%] md:w-96
-         bg-white dark:bg-[#091120]
-         z-50 flex flex-col
-         py-6 px-4
-         transition-transform duration-300
-         translate-x-full md:translate-x-0"
+class="fixed top-0 right-0 h-screen
+w-[85%] max-w-[380px]
+md:w-[320px]
+lg:w-[360px]
+xl:w-[380px]
+bg-white dark:bg-[#091120]
+z-50 flex flex-col
+py-6 px-4
+transition-transform duration-300
+translate-x-full md:translate-x-0"
 >
         <div
-          class="hidden  md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
+          class="hidden  md:flex md:flex-row md:items-center md:gap-4 w-full max-w-[260px] mx-auto md:mt-3"
         >
           <div class="flex flex-col">
             <img src="./src/assets/images/user.png" alt="" />
@@ -98,7 +102,7 @@
 </div>
         </div>
         <div
-          class="flex justify-between flex-row just mt-12.5 w-[80%] m-auto mb-11 md:hidden"
+          class="flex justify-between flex-row just mt-12.5 w-[80%] m-auto mb-3 md:hidden"
         >
           <div>
             <h2
@@ -124,10 +128,10 @@
 </svg>
           </div>
         </div>
-        <nav class="w-[80%] m-auto flex flex-col gap-4 mt-12.5 flex-1">
+        <nav class="overflow-y-auto scrollbar-thin w-full max-w-[280px] mx-auto flex flex-col gap-1 mt-10 flex-1 overflow-y-auto">
           <div
-             class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+             class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -136,7 +140,7 @@
   hover:pr-4"
           >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               خانه
             </h2>
@@ -158,8 +162,8 @@
             </a>
           </div>
           <div
-                        class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+                        class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -168,7 +172,7 @@
   hover:pr-4"
           >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               تسک ها
             </h2>
@@ -190,8 +194,8 @@
             </a>
           </div>
           <div
-class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+class=" w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -199,7 +203,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
   hover:shadow-sm
   hover:pr-4"          >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               تقویم
             </h2>
@@ -221,8 +225,8 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
             </a>
           </div>
           <div
-class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -230,7 +234,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
   hover:shadow-sm
   hover:pr-4"           >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               گزارشات
             </h2>
@@ -252,8 +256,8 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
             </a>
           </div>
           <div
-class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -261,7 +265,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
   hover:shadow-sm
   hover:pr-4"          >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               تنظیمات
             </h2>
@@ -288,8 +292,8 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
             </a>
           </div>
           <div
-class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -297,7 +301,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
   hover:shadow-sm
   hover:pr-4"          >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               پشتیبانی
             </h2>
@@ -319,8 +323,8 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
             </a>
           </div>
           <div
-class="group flex flex-row-reverse justify-end gap-3 items-center
-  p-2 rounded-lg
+class="w-full min-h-[56px] group flex flex-row-reverse justify-end gap-3 items-center
+  p-1 rounded-lg
   cursor-pointer
   transition-all duration-200
   hover:bg-[#F5FAFF]
@@ -328,7 +332,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
   hover:shadow-sm
   hover:pr-4"          >
             <h2
-             class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
+             class="font-semibold text-base text-Neutral-2 dark:text-Neutral-11 dark:font-light transition-colors group-hover:text-[#007BFF]"
             >
               پروفایل
             </h2>
@@ -352,14 +356,16 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
         </nav>
         <div class="nav-footer mt-auto">
           <div
-            class="dark-light flex bg-Neutral-9 p-1 rounded-xl w-[80%] m-auto justify-between dark:bg-[#0C1B31]"
+            class="dark-light flex bg-Neutral-9 p-1 rounded-xl w-full max-w-[280px] mx-auto justify-between dark:bg-[#0C1B31]"
           >
             <div
              id="light-toggle"
-              class="cursor-pointer flex gap-3 flex-row-reverse bg-Neutral-11 p-5 rounded-xl w-[48%] justify-between dark:bg-inherit"
-            >
+class="cursor-pointer flex flex-row-reverse items-center justify-center
+w-[48%] rounded-xl
+px-3 py-3 md:p-5
+gap-2 md:gap-2"            >
               <h2
-                class="text-xl font-bold text-Neutral-2 dark:text-Neutral-8 dark:font-light"
+                class="text-base font-bold text-Neutral-2 dark:text-Neutral-8 dark:font-light"
               >
                 روشن
               </h2>
@@ -382,10 +388,12 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
             </div>
             <div
             id="dark-toggle"
-              class="cursor-pointer flex gap-3 flex-row-reverse p-5 rounded-xl w-[48%] justify-between dark:bg-[#002247]"
-            >
+class="cursor-pointer flex flex-row-reverse items-center justify-center
+w-[48%] rounded-xl
+px-3 py-3 md:p-5
+gap-2 md:gap-3"            >
               <h2
-                class="text-xl opacity-60 font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
+                class="text-base opacity-60 font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
               >
                 تاریک
               </h2>
@@ -407,11 +415,11 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
               </button>
             </div>
           </div>
-          <hr class="border-2 w-[80%] opacity-20 mt-10 m-auto" />
+          <hr class="border-2 w-full max-w-[280px] opacity-20 mt-10 m-auto" />
           <div
-            class="mb-6 exit flex flex-row-reverse justify-end mt-7 w-[70%] m-auto gap-7"
+            class="mb-6 exit flex flex-row-reverse justify-end mt-7 w-full max-w-[280px] mx-auto gap-7"
           >
-            <h2 class="font-bold text-xl dark:text-Neutral-11 dark:font-light">
+            <h2 class="font-semibold text-lg dark:text-Neutral-11 dark:font-light">
               خروج
             </h2>
             <a href="#"
@@ -636,7 +644,7 @@ class="group flex flex-row-reverse justify-end gap-3 items-center
         </div>
       </section>
       <!-- tarane -->
-      <section class="tasks-done mt-9 mb-9">
+      <section id="done-section" class="tasks-done mt-9 mb-9">
         <div class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0">
           <!-- عنوان -->
           <div class="mb-6 text-right">
