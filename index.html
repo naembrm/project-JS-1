@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="icon" href="./src/assets/images/favicon.ico" type="image/x-icon">
      <script>
     if (localStorage.getItem("theme") === "dark") {
       document.documentElement.classList.add("dark");
@@ -50,17 +51,18 @@
             alt="user"
             class="h-30 rounded-full object-cover"
           />
-          <div>
-            <h2 class="text-2xl font-bold text-black dark:text-white">
-              سلام، رویا
-            </h2>
+<div>
+  <h2 class="text-2xl font-bold text-black dark:text-white">
+    سلام، رویا
+  </h2>
 
-            <p
-              class="text-xl font-semibold text-[#7D7D7F] dark:text-[#848890] mt-4"
-            >
-              امروز سه‌شنبه، ۵ بهمن ۱۴۰۲
-            </p>
-          </div>
+  <p
+    id="today-date"
+    class="text-xl font-semibold text-[#7D7D7F] dark:text-[#848890] mt-4"
+  >
+    <!-- با JS پر میشه -->
+  </p>
+</div>
         </div>
       </div>
       <hr
@@ -71,11 +73,12 @@
       <!-- باید فلکس داده شه -->
 <aside
   id="sidebar"
-  class="fixed md:static top-0 right-0 h-screen w-[70%] md:w-96
-          bg-white dark:bg-[#091120]
+  class="fixed top-0 right-0 h-screen w-[70%] md:w-96
+         bg-white dark:bg-[#091120]
          z-50 flex flex-col
+         py-6 px-4
          transition-transform duration-300
-         translate-x-full md:translate-x-0 "
+         translate-x-full md:translate-x-0"
 >
         <div
           class="hidden  md:flex md:flex-row md:items-center md:gap-4 md:w-[70%] md:m-auto md:mt-10"
@@ -83,19 +86,19 @@
           <div class="flex flex-col">
             <img src="./src/assets/images/user.png" alt="" />
           </div>
-          <div class="flex flex-col gap-3">
-            <h2
-              class="text-xl font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
-            >
-              سلام، رویا
-            </h2>
-            <h2 class="text-Neutral-4 dark:text-Neutral-11">
-              سه‌شنبه، ۵ بهمن ۱۴۰۲
-            </h2>
-          </div>
+<div class="flex flex-col gap-3">
+  <h2
+    class="text-xl font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
+  >
+    سلام، رویا
+  </h2>
+  <h2 id="today-date" class="text-Neutral-4 dark:text-Neutral-11">
+    <!-- با JS پر میشه -->
+  </h2>
+</div>
         </div>
         <div
-          class="flex flex-row gap-50 mt-12.5 w-[80%] m-auto mb-11 md:hidden"
+          class="flex justify-between flex-row just mt-12.5 w-[80%] m-auto mb-11 md:hidden"
         >
           <div>
             <h2
@@ -121,9 +124,9 @@
 </svg>
           </div>
         </div>
-        <nav class="w-[80%] m-auto flex flex-col mt-\[50px\] flex-1 mb-25">
+        <nav class="w-[80%] m-auto flex flex-col gap-4 mt-[50px] flex-1">
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center bg-[#F5FAFF] dark:bg-[#041933] w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center bg-[#F5FAFF] dark:bg-[#041933] w-\[100\%\]  p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -148,7 +151,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\]  p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -173,7 +176,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -198,7 +201,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -223,7 +226,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -253,7 +256,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -278,7 +281,7 @@
             </a>
           </div>
           <div
-            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] h-\[80px\] p-7 rounded-lg"
+            class="flex flex-row-reverse justify-end gap-3 items-center w-\[100\%\] p-2 rounded-lg"
           >
             <h2
               class="font-bold text-xl text-Neutral-2 dark:text-Neutral-11 dark:font-light"
@@ -362,7 +365,7 @@
           </div>
           <hr class="border-2 w-[80%] opacity-20 mt-10 m-auto" />
           <div
-            class=" mb-20 exit flex flex-row-reverse justify-end mt-7 w-[70%] m-auto gap-7"
+            class="mb-6 exit flex flex-row-reverse justify-end mt-7 w-[70%] m-auto gap-7"
           >
             <h2 class="font-bold text-xl dark:text-Neutral-11 dark:font-light">
               خروج
@@ -388,12 +391,12 @@
       </aside>
     </header>
 
-    <div class="body-container md:flex-1 p-4 mt-10 h-screen ">
-      <section class="today-tasks">
+    <div class="body-container md:flex-1 p-4 mt-10 h-screen md:mr-80 md:ml-auto">
+      <section id="task-list" class="today-tasks">
         <!-- taha -->
         <div
           id="todo-list"
-          class="mx-auto flex w-full md:w-[65%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0"
+          class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0"
         >
           <div class="flex w-full">
             <div class="flex flex-col items-start gap-1">
@@ -441,7 +444,7 @@
             class="hidden w-full flex-col overflow-hidden rounded-xl border border-Neutral-7 bg-Neutral-11 shadow-[0px_4px_58.5px_0px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#121c29] dark:shadow-none"
           >
             <div
-              class="flex min-h-[300px] flex-col justify-between px-4 py-6 sm:min-h-[316px]"
+              class="flex min-h-[200px] flex-col justify-between px-4 py-6 sm:min-h-[200px]"
             >
               <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-4">
@@ -452,7 +455,7 @@
                     role="textbox"
                     aria-label="نام تسک"
                     data-placeholder="نام تسک"
-                    class="text-base font-bold text-Neutral-3 dark:text-on-background-Dark"
+                    class="h-6 text-base font-bold text-Neutral-3 dark:text-on-background-Dark"
                   >
                     نام تسک
                   </p>
@@ -463,15 +466,16 @@
                     role="textbox"
                     aria-label="توضیحات"
                     data-placeholder="توضیحات"
-                    class="text-sm font-semibold text-Neutral-5 dark:text-Neutral-Dark-5"
+                    class="h-14 text-sm font-semibold text-Neutral-5 dark:text-Neutral-Dark-5"
                   >
                     توضیحات
                   </p>
                 </div>
 
                 <button
+                  id="tag-button"
                   type="button"
-                  class="w-[25%] md:w-[15%] h-[40px] inline-flex flex-row-reverse items-center justify-center gap-3 rounded-sm border border-Neutral-7 px-2 py-1 text-sm font-semibold text-Neutral-5 dark:border-Neutral-Dark-3 dark:text-Neutral-Dark-5"
+                  class="mb-6 w-[25%] md:w-[8%] h-[40px] inline-flex flex-row-reverse items-center justify-center gap-3 rounded-sm border border-Neutral-7 px-2 py-1 text-sm font-semibold text-Neutral-5 dark:border-Neutral-Dark-3 dark:text-Neutral-Dark-5"
                 >
                   <span>تگ ها</span>
                   <svg
@@ -492,8 +496,7 @@
               <div
                 id="priority-selector"
                 dir="ltr"
-                class="flex w-[50%] md:w-[30%] flex-wrap items-center justify-end gap-3 rounded-lg border border-Neutral-7 bg-Neutral-11 p-2.5 shadow-[0px_12px_24px_-6px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#0B192D] dark:shadow-none sm:w-auto sm:gap-4"
-              >
+  class="hidden flex dark:bg-[#0B192D] shadow-lg transition-all duration-300 ease-in-out w-[50%] md:w-[30%] flex-wrap items-center justify-end gap-3 rounded-lg border border-Neutral-7 bg-Neutral-11 p-2.5"              >
                 <span
                   data-priority="high"
                   role="button"
@@ -532,7 +535,22 @@
 
             <div class="h-px w-full bg-Neutral-7 dark:bg-Neutral-Dark-3"></div>
 
-            <div class="flex justify-end px-4 py-6">
+            <div class="flex justify-end items-center gap-2 px-4 py-6">
+              <svg
+              id="close-task-form-button"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke-width="1.5"
+  stroke="currentColor"
+  class="size-5 dark:text-white"
+>
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    d="M6 18 18 6M6 6l12 12"
+  />
+</svg>
               <button
                 id="add-task-button"
                 type="button"
@@ -575,7 +593,7 @@
       </section>
       <!-- tarane -->
       <section class="tasks-done mt-9 mb-9">
-        <div class="container-inner m-auto md:w-[65%]">
+        <div class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0">
           <!-- عنوان -->
           <div class="mb-6 text-right">
             <h2
@@ -583,7 +601,7 @@
             >
               تسک‌های انجام شده
             </h2>
-            <p class="text-sm text-Neutral-4 dark:text-Neutral-7">
+            <p id="done-count-text" class="text-sm text-Neutral-4 dark:text-Neutral-7">
               ۳ تسک انجام شده است.
             </p>
           </div>
