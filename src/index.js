@@ -720,6 +720,7 @@ if (closeTaskFormButton) {
 }
 
 // dark & light theme toggle
+
 document.addEventListener("DOMContentLoaded", () => {
   const darkBtn = document.getElementById("dark-toggle");
   const lightBtn = document.getElementById("light-toggle");
@@ -728,11 +729,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedTheme === "dark") {
     document.documentElement.classList.add("dark");
   }
+  if (savedTheme === "dark") {
+    darkBtn.style.backgroundColor = "#1B2A41";
+    lightBtn.style.backgroundColor = "transparent";
+  } else {
+    lightBtn.style.backgroundColor = "#D1D5DB";
+    darkBtn.style.backgroundColor = "transparent";
+  }
 
   if (darkBtn) {
     darkBtn.addEventListener("click", () => {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      darkBtn.style.backgroundColor = "#1B2A41";
+      lightBtn.style.backgroundColor = "transparent";
     });
   } else {
     console.error("عنصر #dark-toggle پیدا نشد.");
@@ -742,9 +752,24 @@ document.addEventListener("DOMContentLoaded", () => {
     lightBtn.addEventListener("click", () => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      lightBtn.style.backgroundColor = "#D1D5DB";
+      darkBtn.style.backgroundColor = "transparent";
     });
   } else {
     console.error("عنصر #light-toggle پیدا نشد.");
+  }
+  function updateButtons(theme) {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+
+      darkBtn.style.backgroundColor = "#1B2A41";
+      lightBtn.style.backgroundColor = "transparent";
+    } else {
+      document.documentElement.classList.remove("dark");
+
+      lightBtn.style.backgroundColor = "#D1D5DB";
+      darkBtn.style.backgroundColor = "transparent";
+    }
   }
 
   // hamburger menu
