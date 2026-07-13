@@ -18,7 +18,7 @@
       <!-- hamidreza -->
       <div class="wellcome md:hidden">
         <div
-          class="relative w-[90%] h-23 mx-auto mt-5 bg-Neutral-11 rounded-2xl flex items-center px-6 dark:bg-[#091120]"
+          class="relative w-[90%] p-2 mx-auto mt-5 bg-Neutral-11 rounded-2xl flex items-center px-6 dark:bg-[#091120]"
         >
           <!-- منو -->
           <a id="menu-btn" href="#" class="ml-auto">
@@ -40,7 +40,7 @@
 
           <!-- عنوان -->
           <h1
-            class="absolute right-1/2 translate-x-1/2 text-3xl font-bold dark:text-Neutral-10"
+            class="absolute right-1/2 translate-x-1/2 text-xl font-bold dark:text-Neutral-10"
           >
             کوئرا لیست
           </h1>
@@ -49,16 +49,16 @@
           <img
             src="./src/assets/images/user.png"
             alt="user"
-            class="h-30 rounded-full object-cover"
+            class="h-20rounded-full object-cover"
           />
 <div>
-  <h2 class="text-2xl font-bold text-black dark:text-white">
+  <h2 class="text-xl font-bold text-black dark:text-white">
     سلام، رویا
   </h2>
 
   <p
     id="today-date"
-    class="text-xl font-semibold text-[#7D7D7F] dark:text-[#848890] mt-4"
+    class="text-مل font-semibold text-[#7D7D7F] dark:text-[#848890] mt-4"
   >
     <!-- با JS پر میشه -->
   </p>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <hr
-        class="border-2 text-Neutral-8 mt-8 w-[90%] m-auto block md:hidden dark:hidden"
+        class="border-1 text-gray-200 mt-8 w-[90%] m-auto block md:hidden dark:hidden"
       />
 
       <!-- naeme -->
@@ -557,22 +557,22 @@
 </aside>
     </header>
 
-    <div class="body-container md:flex-1 p-4 mt-10 h-screen md:mr-80 md:ml-auto">
+    <div class="body-container md:flex-1 p-4 mt-6 h-screen md:mr-80 md:ml-auto">
       <section id="task-list" class="today-tasks">
         <!-- taha -->
         <div
           id="todo-list"
-          class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0"
+          class=" mx-auto flex w-full md:w-[75%] flex-col gap-4 px-2 py-5 text-right  sm:px-6 lg:px-0"
         >
           <div class="flex w-full">
             <div class="flex flex-col items-start gap-1">
               <h1
-                class="text-xl font-extrabold text-Neutral-2 dark:text-on-background-Dark"
+                class="text-lg font-extrabold text-Neutral-2 dark:text-on-background-Dark"
               >
                 تسک های امروز
               </h1>
-              <p class="text-sm text-Neutral-4 dark:text-Neutral-Dark-5">
-                <span id="remaining-task-count" class="font-extrabold">3 </span>
+              <p class="text-sm text-Neutral-5 dark:text-Neutral-Dark-5">
+                <span id="remaining-task-count" class="font-extralight">3 </span>
                 <!-- <span>تسک را باید انجام دهید.</span> -->
               </p>
             </div>
@@ -581,7 +581,7 @@
           <button
             id="show-task-form-button"
             type="button"
-            class="cursor-pointer flex w-full items-center gap-2 rounded-xl border border-Neutral-7 p-4 dark:border-Neutral-Dark-3"
+            class="cursor-pointer flex w-full items-center gap-2 rounded-xl border border-Neutral-4 p-4 dark:border-Neutral-Dark-3"
             style="border-style: dashed"
           >
             <svg
@@ -607,7 +607,7 @@
 
           <div
             id="task-form-card"
-            class="hidden w-full flex-col overflow-hidden rounded-xl border border-Neutral-7 bg-Neutral-11 shadow-[0px_4px_58.5px_0px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#121c29] dark:shadow-none"
+            class="hidden w-full flex-col overflow-hidden rounded-2xl border border-Neutral-7 bg-Neutral-11 shadow-[0px_4px_58.5px_0px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#121c29] dark:shadow-none"
           >
             <div
               class="flex min-h-[200px] flex-col justify-between px-4 py-6 sm:min-h-[200px]"
@@ -638,25 +638,25 @@
                   </p>
                 </div>
 
-                <button
-                  id="tag-button"
-                  type="button"
-                  class="cursor-pointer mb-6 inline-flex w-fit min-w-[90px] h-10 items-center justify-center gap-2 rounded-sm border border-Neutral-7 px-3 text-sm font-semibold text-Neutral-5 dark:border-Neutral-Dark-3 dark:text-Neutral-Dark-5"
-                >
-                  <span>تگ ها</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="size-5"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.25 2.25A3 3 0 0 0 2.25 5.25v6.879a3 3 0 0 0 .879 2.121l6.621 6.621a3 3 0 0 0 4.242 0l6.879-6.879a3 3 0 0 0 0-4.242L14.25 3.129a3 3 0 0 0-2.121-.879H5.25Zm1.5 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
+<button
+  id="tag-button"
+  type="button"
+  class="mb-6 inline-flex cursor-pointer h-10 w-fit items-center justify-center gap-2 rounded-lg border border-Neutral-8 px-3 text-sm font-semibold text-neutral-400 transition-all duration-200  active:scale-95 dark:border-[#2B3B55]"
+>
+  <span>تگ ها</span>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    class="size-5"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M5.25 2.25A3 3 0 0 0 2.25 5.25v6.879a3 3 0 0 0 .879 2.121l6.621 6.621a3 3 0 0 0 4.242 0l6.879-6.879a3 3 0 0 0 0-4.242L14.25 3.129a3 3 0 0 0-2.121-.879H5.25Zm1.5 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
+      clip-rule="evenodd"
+    />
+  </svg>
+</button>
               </div>
 
               <div
@@ -668,8 +668,7 @@
                   role="button"
                   tabindex="0"
                   aria-pressed="false"
-                  class="rounded-sm bg-Errors/10 px-2 py-0.5 text-lg font-semibold text-Errors"
-                >
+class="cursor-pointer rounded-sm bg-Errors/10 px-2 py-0.5 text-lg font-semibold text-Errors transition-all duration-200 hover:brightness-90 active:scale-95"                >
                   بالا
                 </span>
                 <span
@@ -680,8 +679,7 @@
                   role="button"
                   tabindex="0"
                   aria-pressed="false"
-                  class="rounded-sm bg-[#FFAF37]/10 px-2 py-0.5 text-lg font-semibold text-[#FFAF37]"
-                >
+class="cursor-pointer rounded-sm bg-[#FFAF37]/10 px-2 py-0.5 text-lg font-semibold text-[#FFAF37] transition-all duration-200 hover:brightness-90 active:scale-95"                >
                   متوسط
                 </span>
                 <span
@@ -692,8 +690,7 @@
                   role="button"
                   tabindex="0"
                   aria-pressed="false"
-                  class="rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold text-Success"
-                >
+class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold text-Success transition-all duration-200 hover:brightness-90 active:scale-95"                >
                   پایین
                 </span>
               </div>
@@ -702,25 +699,29 @@
             <div class="h-px w-full bg-Neutral-7 dark:bg-Neutral-Dark-3"></div>
 
             <div class="flex justify-end items-center gap-2 px-4 py-6">
-              <svg
-              id="close-task-form-button"
-  xmlns="http://www.w3.org/2000/svg"
-  fill="none"
-  viewBox="0 0 24 24"
-  stroke-width="1.5"
-  stroke="currentColor"
-  class="size-5 dark:text-white cursor-pointer "
+<button
+  id="close-task-form-button"
+  class="flex h-9 w-9 items-center justify-center rounded-lg border border-Neutral-8 dark:border-[#2B3B55] cursor-pointer text-neutral-400 transition-all duration-200  active:scale-95 dark:text-white"
 >
-  <path
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    d="M6 18 18 6M6 6l12 12"
-  />
-</svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    class="h-5 w-5"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M6 18 18 6M6 6l12 12"
+    />
+  </svg>
+</button>
               <button
                 id="add-task-button"
                 type="button"
-                class="cursor-pointer rounded-md bg-primary-hover-light font-normal px-4 py-1.5 text-md text-on-primary-light opacity-60 transition-opacity hover:opacity-100"
+                class="cursor-pointer rounded-lg bg-primary-hover-light font-normal px-4 py-1.5 text-md text-on-primary-light opacity-60 transition-opacity hover:opacity-100"
               >
                 اضافه کردن تسک
               </button>
@@ -729,27 +730,22 @@
 
           <div
             id="empty-state"
-            class="hidden w-full flex-col items-center justify-center gap-6 py-8"
+            class="hidden md:w-full  flex-col items-center justify-center gap-6 py-8"
           >
             <img
               src="./src/assets/images/empty-state.png"
               alt=""
-              style="
-                width: 18rem;
-                height: auto;
-                max-width: 100%;
-                object-fit: contain;
-                opacity: 0.5;
-              "
+  class="w-60 md:w-72 lg:w-80 xl:w-96 h-auto max-w-full object-contain opacity-70"
+
             />
             <div class="flex flex-col items-center justify-center gap-1">
               <p
-                class="text-base font-extrabold text-Neutral-5 dark:text-Neutral-Dark-5"
+                class="text-base font-extrabold text-Neutral-4 dark:text-Neutral-Dark-5"
               >
                 چه کارهایی امروز برای انجام داری؟
               </p>
               <p
-                class="text-sm font-semibold text-Neutral-4 dark:text-Neutral-7"
+                class="text-sm font-extralight  text-Neutral-5 dark:text-Neutral-7"
               >
                 میتونی الان تسک‌هاتو اینجا بنویسی و برنامه ریزی رو شروع کنی!
               </p>
@@ -758,16 +754,16 @@
         </div>
       </section>
       <!-- tarane -->
-      <section id="done-section" class="tasks-done mt-9 mb-9">
+      <section id="done-section" class="tasks-done mb-9">
         <div class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0">
           <!-- عنوان -->
           <div class="mb-6 text-right">
             <h2
-              class="text-xl font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
+              class="text-lg font-bold text-Neutral-2 dark:text-Neutral-11 dark:font-light"
             >
               تسک‌های انجام شده
             </h2>
-            <p id="done-count-text" class="text-sm text-Neutral-4 dark:text-Neutral-Dark-5 font-extrabold">
+            <p id="done-count-text" class="text-sm text-Neutral-5 dark:text-Neutral-Dark-5 font-extralight">
               ۳ تسک انجام شده است.
             </p>
           </div>

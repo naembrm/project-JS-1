@@ -365,14 +365,17 @@
 
       article.dataset.savedTask = "true";
       article.dataset.taskId = task.id;
-      article.className =
-        "relative flex min-h-[108px] w-full items-start justify-between gap-4 overflow-hidden rounded-xl border border-Neutral-7 bg-Neutral-11 py-6 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]";
+      article.className = completed
+        ? "relative flex w-full items-center justify-between gap-4 rounded-xl border border-Neutral-7 bg-Neutral-11 py-4 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]"
+        : "relative flex min-h-[108px] w-full items-start justify-between gap-4 rounded-xl border border-Neutral-7 bg-Neutral-11 py-6 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]";
 
       const indicator = document.createElement("span");
       indicator.className = `absolute inset-y-3 right-0 w-1 rounded-l-lg ${priorityData.indicatorClass}`;
 
       const content = document.createElement("div");
-      content.className = "flex min-w-0 items-start gap-4";
+      content.className = completed
+        ? "flex min-w-0 items-center gap-4"
+        : "flex min-w-0 items-start gap-4";
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
@@ -380,7 +383,9 @@
       checkbox.className = "task-check mt-0.5 size-5 cursor-pointer";
 
       const textContainer = document.createElement("div");
-      textContainer.className = "flex min-w-0 flex-col items-start gap-2.5";
+      textContainer.className = completed
+        ? "flex min-w-0 flex-col items-start"
+        : "flex min-w-0 flex-col items-start gap-2.5";
 
       const headingGroup = document.createElement("div");
       headingGroup.className = "flex items-center gap-2 flex-wrap";
