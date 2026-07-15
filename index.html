@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fa" dir="rtl">
   <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="icon" href="./src/assets/images/favicon.ico" type="image/x-icon">
+    <!-- بررسی حالت تم ذخیره شده در localStorage و اعمال کلاس dark قبل از رندر صفحه (جلوگیری از فلش تم اشتباه) -->
      <script>
     if (localStorage.getItem("theme") === "dark") {
       document.documentElement.classList.add("dark");
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="src/output.css" />
   </head>
   <body class="font-yekan bg-Neutral-9 dark:bg-[#060C18] md:flex md:gap-20">
+    <!-- ============================= هدر و سایدبار ============================= -->
     <header class="relative">
       <!-- hamidreza -->
       <div class="wellcome md:hidden">
@@ -21,6 +22,7 @@
           class="relative w-[90%] p-2 mx-auto mt-5 bg-Neutral-11 rounded-2xl flex items-center px-6 dark:bg-[#091120]"
         >
           <!-- منو -->
+          <!-- دکمه همبرگری برای باز کردن سایدبار در حالت موبایل -->
           <a id="menu-btn" href="#" class="ml-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +30,7 @@
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="w-10 h-10 dark:text-Neutral-10"
+              class="w-7 h-10 dark:text-Neutral-10"
             >
               <path
                 stroke-linecap="round"
@@ -45,6 +47,7 @@
             کوئرا لیست
           </h1>
         </div>
+        <!-- بخش خوش‌آمدگویی به کاربر (فقط موبایل) -->
         <div class="flex items-center gap-4 mt-15 md:hidden w-[90%] m-auto">
           <img
             src="./src/assets/images/user.png"
@@ -65,12 +68,13 @@
 </div>
         </div>
       </div>
+      <!-- خط جداکننده زیر بخش خوش‌آمدگویی، فقط در حالت روشن و موبایل نمایش داده می‌شود -->
       <hr
         class="border-1 text-gray-200 mt-8 w-[90%] m-auto block md:hidden dark:hidden"
       />
 
       <!-- naeme -->
-      <!-- باید فلکس داده شه -->
+      <!-- سایدبار اصلی: در موبایل به صورت پنل کشویی از راست (fixed) و در دسکتاپ به صورت ثابت و همیشه نمایان -->
 <aside
   id="sidebar"
   class="fixed top-0 right-0 h-screen
@@ -86,6 +90,7 @@
   overflow-hidden"
 >
   <!-- Desktop header (avatar + greeting) -->
+  <!-- هدر مخصوص دسکتاپ -->
   <div
     class="hidden md:flex md:flex-row md:items-center
     gap-[clamp(8px,1.5vh,16px)]
@@ -115,7 +120,8 @@
     </div>
   </div>
 
-  <!-- Mobile top bar (title + close) -->
+
+  <!-- نوار بالایی داخل سایدبار موبایل: عنوان اپلیکیشن + دکمه بستن منو (فقط موبایل) -->
   <div
     class="flex justify-between flex-row
     mt-[clamp(20px,5vh,50px)]
@@ -126,7 +132,7 @@
   >
     <div>
       <h2
-        class="text-[clamp(18px,3vh,24px)] whitespace-nowrap text-Neutral-2 dark:text-Neutral-11 dark:font-light"
+        class="text-lg md:text-xl dark:text-Neutral-11 dark:font-light"
       >
         کوئرا لیست
       </h2>
@@ -138,7 +144,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="size-[clamp(24px,4vh,32px)] dark:text-white"
+        class="size-6 md:size-7 dark:text-white"
       >
         <path
           stroke-linecap="round"
@@ -150,6 +156,7 @@
   </div>
 
   <!-- Main nav -->
+  <!-- منوی اصلی ناوبری شامل ۷ آیتم: خانه، تسک‌ها، تقویم، گزارشات، تنظیمات، پشتیبانی و پروفایل -->
   <nav
     class="w-full max-w-[230px] mx-auto
     flex flex-col justify-start
@@ -160,6 +167,7 @@
     flex-1 min-h-0
     overflow-hidden"
   >
+    <!-- آیتم منو: خانه -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -201,6 +209,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: تسک ها -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -242,6 +251,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: تقویم -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -283,6 +293,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: گزارشات -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -324,6 +335,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: تنظیمات -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -370,6 +382,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: پشتیبانی -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -411,6 +424,7 @@
       </a>
     </div>
 
+    <!-- آیتم منو: پروفایل -->
     <div
       class="w-full
       min-h-[clamp(24px,5.5vh,52px)]
@@ -453,7 +467,7 @@
     </div>
   </nav>
 
-  <!-- Footer: dark/light toggle + logout -->
+  <!-- فوتر سایدبار: کلید تغییر تم (روشن/تاریک) و دکمه خروج از حساب کاربری -->
   <div class="nav-footer flex-shrink-0">
     <div
       class="dark-light flex bg-Neutral-9 rounded-xl w-full max-w-[230px] mx-auto justify-between dark:bg-[#0C1B31]
@@ -524,6 +538,7 @@
       mt-[clamp(10px,2.5vh,40px)] m-auto"
     />
 
+    <!-- دکمه خروج از حساب کاربری -->
     <div
       class="exit flex flex-row-reverse justify-end
       mt-[clamp(8px,1.8vh,28px)]
@@ -557,7 +572,10 @@
 </aside>
     </header>
 
+    <!-- ============================= محتوای اصلی صفحه ============================= -->
+    <!-- کانتینر اصلی محتوا؛ در دسکتاپ با mr-80 فضای سایدبار را جبران می‌کند -->
     <div class="body-container md:flex-1 p-4 mt-6 h-screen md:mr-80 md:ml-auto">
+      <!-- بخش تسک‌های امروز (فرم افزودن تسک جدید + لیست خالی/پر) -->
       <section id="task-list" class="today-tasks">
         <!-- taha -->
         <div
@@ -578,6 +596,7 @@
             </div>
           </div>
 
+          <!-- دکمه‌ای که با کلیک، فرم افزودن تسک جدید (task-form-card) را نمایش می‌دهد -->
           <button
             id="show-task-form-button"
             type="button"
@@ -605,6 +624,7 @@
             </span>
           </button>
 
+          <!-- کارت فرم افزودن تسک: به صورت پیش‌فرض مخفی است (hidden) و با کلیک روی دکمه بالا نمایش داده می‌شود -->
           <div
             id="task-form-card"
             class="hidden w-full flex-col overflow-hidden rounded-2xl border border-Neutral-7 bg-Neutral-11 shadow-[0px_4px_58.5px_0px_var(--color-Neutral-7)] dark:border-Neutral-Dark-3 dark:bg-[#121c29] dark:shadow-none"
@@ -613,6 +633,7 @@
               class="flex min-h-[200px] flex-col justify-between px-4 py-6 sm:min-h-[200px]"
             >
               <div class="flex flex-col gap-8">
+                <!-- فیلدهای ویرایش‌پذیر (contenteditable) برای نام و توضیحات تسک -->
                 <div class="flex flex-col gap-4">
                   <p
                     id="task-name-field"
@@ -638,6 +659,7 @@
                   </p>
                 </div>
 
+<!-- دکمه باز کردن پنل انتخاب اولویت/تگ تسک -->
 <button
   id="tag-button"
   type="button"
@@ -659,6 +681,7 @@
 </button>
               </div>
 
+              <!-- پنل انتخاب سطح اولویت تسک (بالا/متوسط/پایین)، پیش‌فرض مخفی و با کلیک روی دکمه تگ‌ها ظاهر می‌شود -->
               <div
                 id="priority-selector"
                 dir="ltr"
@@ -698,6 +721,7 @@ class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold tex
 
             <div class="h-px w-full bg-Neutral-7 dark:bg-Neutral-Dark-3"></div>
 
+            <!-- دکمه‌های پایین فرم: انصراف (بستن فرم) و ثبت تسک جدید -->
             <div class="flex justify-end items-center gap-2 px-4 py-6">
 <button
   id="close-task-form-button"
@@ -728,6 +752,7 @@ class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold tex
             </div>
           </div>
 
+          <!-- حالت خالی بودن لیست تسک‌ها: وقتی هیچ تسکی وجود ندارد این بخش (با JS) نمایش داده می‌شود -->
           <div
             id="empty-state"
             class="hidden md:w-full  flex-col items-center justify-center gap-6 py-8"
@@ -754,6 +779,7 @@ class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold tex
         </div>
       </section>
       <!-- tarane -->
+      <!-- بخش تسک‌های انجام‌شده: لیست تسک‌هایی که کاربر تیک زده و کامل کرده است -->
       <section id="done-section" class="tasks-done mb-9">
         <div class="mx-auto flex w-full md:w-[75%] flex-col gap-4 px-4 py-8 text-right  sm:px-6 lg:px-0">
           <!-- عنوان -->
@@ -769,6 +795,7 @@ class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold tex
           </div>
 
           <!-- لیست تسک‌ها -->
+          <!-- کانتینر کارت‌های تسک‌های انجام‌شده؛ در حال حاضر آیتم‌های نمونه به صورت کامنت نگه داشته شده‌اند تا با JS پر شوند -->
           <div id="done-list" class="space-y-4">
             <div class="task-card relative">
               <!-- <div
@@ -851,11 +878,13 @@ class="cursor-pointer rounded-sm bg-Success/20 px-2 py-0.5 text-lg font-bold tex
         </div>
       </section>
     </div>
+<!-- لایه تیره پشت سایدبار (اورلی)؛ هنگام باز بودن منو در موبایل نمایش داده می‌شود و با کلیک روی آن منو بسته می‌شود -->
 <div
   id="overlay"
   class="fixed inset-0 bg-black/90 opacity-0 invisible transition-all duration-300 z-40 md:hidden"
 ></div>
 
+    <!-- فایل جاوااسکریپت اصلی پروژه: مدیریت باز/بسته شدن منو، تغییر تم، افزودن/حذف تسک و ... -->
     <script src="./src/index.js" ></script>
 
   </body>
