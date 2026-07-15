@@ -1,11 +1,13 @@
 (() => {
   "use strict";
 
+  // کلیدهای مورد استفاده برای ذخیره‌سازی در localStorage
   const STORAGE_KEYS = {
-    draft: "quera-task-draft",
-    tasks: "quera-saved-tasks",
+    draft: "quera-task-draft", // پیش‌نویس فرم (قبل از ثبت نهایی)
+    tasks: "quera-saved-tasks", // لیست تسک‌های ذخیره‌شده
   };
 
+  // تنظیمات مربوط به سطوح اولویت (رنگ، برچسب و کلاس‌های ظاهری)
   const PRIORITIES = {
     high: {
       label: "بالا",
@@ -29,6 +31,7 @@
     },
   };
 
+  // خواندن یک مقدار از localStorage با مدیریت خطا و مقدار پیش‌فرض
   function readStorage(key, fallbackValue) {
     try {
       const savedValue = localStorage.getItem(key);
@@ -39,6 +42,7 @@
     }
   }
 
+  // نوشتن یک مقدار در localStorage با مدیریت خطا
   function writeStorage(key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
@@ -47,6 +51,7 @@
     }
   }
 
+  // تولید یک شناسه یکتا برای هر تسک (با اولویت استفاده از crypto.randomUUID)
   function createTaskId() {
     if (window.crypto && typeof window.crypto.randomUUID === "function") {
       return window.crypto.randomUUID();
@@ -55,14 +60,20 @@
     return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
+  // تبدیل ارقام انگلیسی به ارقام فارسی برای نمایش
   function toPersianDigits(num) {
     const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
     return num.toString().replace(/\d/g, (d) => persianDigits[d]);
   }
+
+  // وضعیت‌های سراسری ماژول (خارج از initializeTaskForm)
   let selectedPriority = null;
-  let editingTaskId = null;
+  let editingTaskId = null; // شناسه تسکی که در حال ویرایش است (null یعنی حالت افزودن)
   let tasks = readStorage(STORAGE_KEYS.tasks, []);
+
+  // تابع اصلی راه‌اندازی فرم تسک و تمام رفتارهای مرتبط با آن
   function initializeTaskForm() {
+    // گرفتن رفرنس المان‌های اصلی صفحه
     const doneSection = document.getElementById("done-section");
     const todoList = document.getElementById("todo-list");
     const titleField = document.getElementById("task-name-field");
@@ -76,12 +87,14 @@
     const prioritySelector = document.getElementById("priority-selector");
     const tagButton = document.getElementById("tag-button");
 
+    // نمایش/مخفی کردن انتخابگر اولویت با کلیک روی دکمه تگ
     if (tagButton && prioritySelector) {
       tagButton.addEventListener("click", () => {
         prioritySelector.classList.toggle("hidden");
       });
     }
 
+    // اگر المان‌های ضروری فرم در صفحه نباشند، ادامه نده
     if (
       !todoList ||
       !titleField ||
@@ -93,10 +106,12 @@
       return;
     }
 
+    // کارت فرم = والدِ والدِ دکمه‌ی افزودن تسک
     const formCard = addTaskButton.parentElement
       ? addTaskButton.parentElement.parentElement
       : null;
 
+    // نمایش فرم افزودن/ویرایش تسک
     function showTaskForm() {
       if (!formCard) return;
 
@@ -109,6 +124,7 @@
       }
     }
 
+    // مخفی کردن فرم افزودن/ویرایش تسک
     function hideTaskForm() {
       if (!formCard) return;
 
@@ -121,11 +137,13 @@
       }
     }
 
+    // نگه‌داشتن حالت اولیه‌ی انتخابگر اولویت برای بازگردانی بعد از پاک کردن انتخاب
     const originalPriorityHTML = prioritySelector.innerHTML;
     const originalPriorityClass = prioritySelector.className;
     const originalPriorityDirection =
       prioritySelector.getAttribute("dir") || "ltr";
 
+    // توجه: این دو متغیر محلی هم‌نام متغیرهای سراسری بالا هستند و در scope تابع override می‌شوند
     let selectedPriority = null;
     let tasks = readStorage(STORAGE_KEYS.tasks, []);
 
@@ -133,6 +151,7 @@
       tasks = [];
     }
 
+    // حذف فاصله‌های اضافی/نویسه nbsp از متن ورودی
     function normalizeText(value) {
       return String(value || "")
         .replace(/\u00a0/g, " ")
@@ -140,15 +159,18 @@
         .trim();
     }
 
+    // خواندن مقدار واقعی یک فیلد قابل‌ویرایش (نادیده گرفتن متن placeholder)
     function getEditableValue(field) {
       const value = normalizeText(field.textContent);
       return value === field.dataset.placeholder ? "" : value;
     }
 
+    // تنظیم مقدار یک فیلد قابل‌ویرایش (یا نمایش placeholder در صورت خالی بودن)
     function setEditableValue(field, value) {
       field.textContent = value || field.dataset.placeholder || "";
     }
 
+    // ساخت آبجکت پیش‌نویس فعلی از روی مقادیر فرم
     function getCurrentDraft() {
       return {
         title: getEditableValue(titleField),
@@ -157,14 +179,17 @@
       };
     }
 
+    // ذخیره پیش‌نویس فعلی فرم در localStorage
     function saveDraft() {
       writeStorage(STORAGE_KEYS.draft, getCurrentDraft());
     }
 
+    // بررسی کامل بودن فرم (عنوان و اولویت الزامی هستند)
     function isFormComplete() {
       return Boolean(getEditableValue(titleField) && selectedPriority);
     }
 
+    // فعال/غیرفعال کردن ظاهری و واقعی دکمه‌ی افزودن تسک بر اساس کامل بودن فرم
     function updateAddButton() {
       const isActive = isFormComplete();
 
@@ -175,6 +200,7 @@
       addTaskButton.style.backgroundColor = isActive ? "#007bff" : "";
     }
 
+    // بازگرداندن انتخابگر اولویت به حالت اولیه (نمایش گزینه‌ها)
     function showPriorityOptions() {
       prioritySelector.className = originalPriorityClass;
       prioritySelector.setAttribute("dir", originalPriorityDirection);
@@ -183,6 +209,7 @@
       prioritySelector.classList.add("hidden");
     }
 
+    // نمایش بج اولویت انتخاب‌شده به‌جای لیست گزینه‌ها
     function showSelectedPriority(priority) {
       const priorityData = PRIORITIES[priority];
       if (!priorityData) return;
@@ -195,6 +222,7 @@
 
       prioritySelector.classList.remove("hidden");
 
+      // دکمه‌ی پاک کردن اولویت + نمایش بج رنگی اولویت
       prioritySelector.innerHTML = `
     <div
       data-clear-priority
@@ -218,6 +246,7 @@
   `;
     }
 
+    // ثبت اولویت انتخاب‌شده (و ذخیره پیش‌نویس در صورت نیاز)
     function selectPriority(priority, shouldSave = true) {
       if (!Object.prototype.hasOwnProperty.call(PRIORITIES, priority)) {
         return;
@@ -230,6 +259,7 @@
       updateAddButton();
     }
 
+    // پاک کردن اولویت انتخاب‌شده و بازگشت به حالت انتخاب اولیه
     function clearPriority(shouldSave = true) {
       selectedPriority = null;
       showPriorityOptions();
@@ -237,11 +267,15 @@
       if (shouldSave) saveDraft();
       updateAddButton();
     }
+
+    // با کلیک در هر جای صفحه، همه‌ی منوهای باز (سه‌نقطه) بسته شوند
     document.addEventListener("click", () => {
       document.querySelectorAll("[data-task-menu]").forEach((menu) => {
         menu.classList.add("hidden");
       });
     });
+
+    // ساخت دکمه‌ی سه‌نقطه (بیشتر) هر تسک به همراه منوی ویرایش/حذف
     function createMoreButton(task) {
       const wrapper = document.createElement("div");
       wrapper.className = "relative";
@@ -271,6 +305,7 @@
 
       menu.dataset.taskMenu = "true";
 
+      // دکمه‌های ویرایش و حذف داخل منو
       menu.innerHTML = `
   <button 
     data-edit 
@@ -321,6 +356,7 @@
   </button>
 `;
 
+      // باز/بسته کردن منوی همین تسک با کلیک روی دکمه سه‌نقطه
       button.addEventListener("click", (event) => {
         event.stopPropagation();
 
@@ -335,12 +371,15 @@
         menu.classList.toggle("hidden");
       });
 
+      // حذف تسک از لیست و ذخیره + رندر مجدد
       menu.querySelector("[data-delete]").addEventListener("click", () => {
         tasks = tasks.filter((savedTask) => savedTask.id !== task.id);
 
         writeStorage(STORAGE_KEYS.tasks, tasks);
         renderSavedTasks();
       });
+
+      // ورود به حالت ویرایش: پر کردن فرم با مقادیر تسک انتخابی
       menu.querySelector("[data-edit]").addEventListener("click", () => {
         titleField.textContent = task.title;
         descriptionField.textContent = task.description;
@@ -359,16 +398,19 @@
       return wrapper;
     }
 
+    // ساخت کارت نمایشی یک تسک (هم برای حالت انجام‌نشده و هم انجام‌شده)
     function createTaskCard(task, completed) {
       const priorityData = PRIORITIES[task.priority] || PRIORITIES.medium;
       const article = document.createElement("article");
 
       article.dataset.savedTask = "true";
       article.dataset.taskId = task.id;
+      // چیدمان متفاوت برای کارت‌های انجام‌شده نسبت به انجام‌نشده
       article.className = completed
         ? "relative flex w-full items-center justify-between gap-4 rounded-xl border border-Neutral-7 bg-Neutral-11 py-4 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]"
         : "relative flex min-h-[108px] w-full items-start justify-between gap-4 rounded-xl border border-Neutral-7 bg-Neutral-11 py-6 pr-6 pl-5 dark:border-Neutral-Dark-3 dark:bg-[#121c29]";
 
+      // نوار رنگی سمت راست کارت که اولویت را نشان می‌دهد
       const indicator = document.createElement("span");
       indicator.className = `absolute inset-y-3 right-0 w-1 rounded-l-lg ${priorityData.indicatorClass}`;
 
@@ -377,6 +419,7 @@
         ? "flex min-w-0 items-center gap-4"
         : "flex min-w-0 items-start gap-4";
 
+      // چک‌باکس تیک زدن/انجام‌شده کردن تسک
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = Boolean(completed);
@@ -404,6 +447,7 @@
         "text-sm font-normal text-Neutral-3 dark:text-Neutral-Dark-5";
       description.textContent = task.description;
 
+      // اعمال خط‌خوردگی روی عنوان/توضیح تسک‌های انجام‌شده
       if (completed) {
         title.classList.add("line-through", "opacity-60");
         description.classList.add("line-through", "opacity-60");
@@ -411,17 +455,20 @@
 
       headingGroup.append(title);
 
+      // بج اولویت فقط برای تسک‌های انجام‌نشده نمایش داده می‌شود
       if (!completed) {
         headingGroup.append(badge);
       }
       textContainer.append(headingGroup);
 
+      // توضیحات فقط وقتی نمایش داده شود که تسک انجام‌نشده و توضیح داشته باشد
       if (!completed && task.description) {
         textContainer.append(description);
       }
       content.append(checkbox, textContainer);
       article.append(indicator, content, createMoreButton(task));
 
+      // تغییر وضعیت انجام‌شده/نشده با کلیک روی چک‌باکس
       checkbox.addEventListener("change", (event) => {
         event.stopImmediatePropagation();
 
@@ -438,6 +485,7 @@
       return article;
     }
 
+    // به‌روزرسانی متن تعداد تسک‌های باقی‌مانده (انجام‌نشده)
     function updateRemainingCount() {
       if (!remainingTaskCount) return;
 
@@ -450,6 +498,7 @@
       }
     }
 
+    // به‌روزرسانی متن تعداد تسک‌های انجام‌شده و نمایش/مخفی کردن بخش «انجام‌شده‌ها»
     function updateDoneCount() {
       if (!doneCountText) return;
 
@@ -464,7 +513,9 @@
       }
     }
 
+    // رندر کامل تمام تسک‌های ذخیره‌شده (هم لیست فعال و هم انجام‌شده)
     function renderSavedTasks() {
+      // پاک کردن کارت‌های قبلی قبل از رندر مجدد
       document
         .querySelectorAll('[data-saved-task="true"]')
         .forEach((taskCard) => taskCard.remove());
@@ -475,6 +526,7 @@
         low: 3,
       };
 
+      // مرتب‌سازی: اول بر اساس اولویت، سپس بر اساس جدیدترین تاریخ ساخت
       const sortedTasks = [...tasks].sort((a, b) => {
         const priorityDiff =
           priorityOrder[a.priority] - priorityOrder[b.priority];
@@ -489,6 +541,7 @@
       const activeTasks = sortedTasks.filter((task) => !task.completed);
       const completedTasks = sortedTasks.filter((task) => task.completed);
 
+      // درج تسک‌های فعال بلافاصله بعد از کارت فرم
       if (formCard) {
         [...activeTasks].reverse().forEach((task) => {
           formCard.insertAdjacentElement(
@@ -498,12 +551,14 @@
         });
       }
 
+      // درج تسک‌های انجام‌شده در لیست جداگانه
       if (doneList) {
         completedTasks.forEach((task) => {
           doneList.append(createTaskCard(task, true));
         });
       }
 
+      // نمایش حالت خالی وقتی هیچ تسک فعالی وجود نداشته باشد
       if (emptyState) {
         const hasActiveTasks = activeTasks.length > 0;
         emptyState.classList.toggle("hidden", hasActiveTasks);
@@ -514,6 +569,7 @@
       updateDoneCount();
     }
 
+    // بازنشانی فرم به حالت اولیه (خالی) بعد از ثبت/لغو
     function resetForm() {
       setEditableValue(titleField, "");
       setEditableValue(descriptionField, "");
@@ -526,6 +582,7 @@
       updateAddButton();
     }
 
+    // افزودن تسک جدید یا ذخیره تغییرات تسک در حال ویرایش
     function addTask(event) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -533,6 +590,7 @@
       if (!isFormComplete()) return;
 
       if (editingTaskId) {
+        // حالت ویرایش: جایگزینی مقادیر تسک موجود
         tasks = tasks.map((task) =>
           task.id === editingTaskId
             ? {
@@ -547,6 +605,7 @@
         editingTaskId = null;
         addTaskButton.textContent = "افزودن تسک";
       } else {
+        // حالت افزودن: ساخت تسک جدید و قرار دادن در ابتدای لیست
         const task = {
           id: createTaskId(),
           title: getEditableValue(titleField),
@@ -565,18 +624,22 @@
       hideTaskForm();
     }
 
+    // اتصال رویدادهای مشترک روی فیلدهای قابل‌ویرایش (عنوان/توضیح)
     function prepareEditableField(field) {
+      // پاک کردن placeholder هنگام فوکوس روی فیلد خالی
       field.addEventListener("focus", () => {
         if (!getEditableValue(field)) {
           field.textContent = "";
         }
       });
 
+      // ذخیره پیش‌نویس و بروزرسانی دکمه با هر تغییر ورودی
       field.addEventListener("input", () => {
         saveDraft();
         updateAddButton();
       });
 
+      // بازگرداندن placeholder اگر فیلد خالی از فوکوس خارج شود
       field.addEventListener("blur", () => {
         if (!getEditableValue(field)) {
           setEditableValue(field, "");
@@ -586,6 +649,7 @@
         updateAddButton();
       });
 
+      // پیست کردن فقط متن ساده (بدون فرمت‌بندی اضافه)
       field.addEventListener("paste", (event) => {
         event.preventDefault();
         const pastedText = event.clipboardData
@@ -603,6 +667,7 @@
     prepareEditableField(titleField);
     prepareEditableField(descriptionField);
 
+    // فشردن Enter در فیلد عنوان، فوکوس را به فیلد توضیح منتقل می‌کند
     titleField.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -610,6 +675,7 @@
       }
     });
 
+    // مدیریت کلیک روی گزینه‌های اولویت یا دکمه‌ی پاک‌کردن اولویت
     prioritySelector.addEventListener(
       "click",
       (event) => {
@@ -627,6 +693,7 @@
       true,
     );
 
+    // پشتیبانی از کیبورد (Enter/Space) برای انتخاب/پاک‌کردن اولویت
     prioritySelector.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
 
@@ -644,12 +711,14 @@
 
     addTaskButton.addEventListener("click", addTask, true);
 
+    // بروزرسانی تاخیری شمارنده‌ی تسک‌های باقی‌مانده بعد از تغییر چک‌باکس
     document.addEventListener("change", (event) => {
       if (event.target.matches("#todo-list article .task-check")) {
         window.setTimeout(updateRemainingCount, 0);
       }
     });
 
+    // بازیابی پیش‌نویس ذخیره‌شده (در صورت وجود) و پر کردن فرم با آن
     const draft = readStorage(STORAGE_KEYS.draft, {});
 
     setEditableValue(
@@ -670,10 +739,12 @@
       clearPriority(false);
     }
 
+    // رندر اولیه‌ی تسک‌های ذخیره‌شده و تنظیم وضعیت اولیه دکمه‌ها
     renderSavedTasks();
     updateAddButton();
   }
 
+  // اجرای راه‌اندازی فرم پس از لود کامل DOM (یا بلافاصله اگر از قبل لود شده)
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeTaskForm, {
       once: true,
@@ -682,11 +753,14 @@
     initializeTaskForm();
   }
 })();
+
+// رفرنس‌های مربوط به باز/بسته کردن فرم از بیرون از IIFE اصلی
 const showTaskFormButton = document.getElementById("show-task-form-button");
 const taskFormCard = document.getElementById("task-form-card");
 const closeTaskFormButton = document.getElementById("close-task-form-button");
 const emptyState = document.getElementById("empty-state");
 
+// نمایش/مخفی کردن حالت خالی بر اساس وجود یا عدم وجود تسک در DOM
 function updateEmptyState() {
   const tasks = document.querySelectorAll('[data-saved-task="true"]');
 
@@ -730,6 +804,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const darkBtn = document.getElementById("dark-toggle");
   const lightBtn = document.getElementById("light-toggle");
 
+  // اعمال تم ذخیره‌شده‌ی قبلی از localStorage در بارگذاری صفحه
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     document.documentElement.classList.add("dark");
@@ -742,6 +817,7 @@ document.addEventListener("DOMContentLoaded", () => {
     darkBtn.style.backgroundColor = "transparent";
   }
 
+  // فعال کردن تم تیره با کلیک
   if (darkBtn) {
     darkBtn.addEventListener("click", () => {
       document.documentElement.classList.add("dark");
@@ -753,6 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("عنصر #dark-toggle پیدا نشد.");
   }
 
+  // فعال کردن تم روشن با کلیک
   if (lightBtn) {
     lightBtn.addEventListener("click", () => {
       document.documentElement.classList.remove("dark");
@@ -763,6 +840,8 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.error("عنصر #light-toggle پیدا نشد.");
   }
+
+  // تابع کمکی (در حال حاضر بدون استفاده مستقیم) برای اعمال یک‌جای رنگ دکمه‌های تم
   function updateButtons(theme) {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -785,12 +864,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
 
   if (sidebar && menuBtn && closeBtn && overlay) {
+    // باز کردن منوی همبرگری (سایدبار) + نمایش overlay
     function openMenu() {
       sidebar.classList.remove("translate-x-full");
       overlay.classList.remove("opacity-0", "invisible");
       body.classList.add("overflow-hidden");
     }
 
+    // بستن منوی همبرگری (سایدبار) + مخفی کردن overlay
     function closeMenu() {
       sidebar.classList.add("translate-x-full");
       overlay.classList.add("opacity-0", "invisible");
@@ -805,6 +886,7 @@ document.addEventListener("DOMContentLoaded", () => {
     closeBtn.addEventListener("click", closeMenu);
     overlay.addEventListener("click", closeMenu);
 
+    // بستن خودکار منو در سایزهای بزرگ صفحه (دسکتاپ)
     window.addEventListener("resize", () => {
       if (window.innerWidth >= 768) {
         closeMenu();
@@ -820,6 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // today's date (Persian calendar)
+  // نمایش تاریخ امروز به تقویم شمسی در تمام المان‌های با id به نام today-date
   function setTodayDate() {
     const dateEls = document.querySelectorAll("#today-date");
     if (!dateEls.length) {
